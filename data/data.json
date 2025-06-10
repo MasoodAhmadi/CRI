@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Masood",
+    "lastName": "Ahmadi",
+    "email": "masoodahmadi553@gmail.com",
+    "phone": "0404648294",
+    "address": "Kisasnmaankatu 20 D 166",
+    "city": "Tampere",
+    "membership": "basic",
+    "id": "1"
+  },
+  {
+    "name": "Masood",
+    "lastName": "Ahmadi",
+    "email": "masoodahmadi553@gmail.com",
+    "phone": "0404648294",
+    "address": "Kisasnmaankatu 20 D 166",
+    "city": "Tampere",
+    "membership": "basic",
+    "id": "2"
+  },
+  {
+    "name": "Masood",
+    "lastName": "Ahmadi",
+    "email": "masoodahmadi553@gmail.com",
+    "phone": "0404648294",
+    "address": "Kisasnmaankatu 20 D 166",
+    "city": "Tampere",
+    "membership": "premium",
+    "id": "3"
+  }
+]

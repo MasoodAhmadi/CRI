@@ -1,5 +1,12 @@
+// app/page.js
+import React from 'react';
+import Navbar from './components/navbars';
 
-// pages/index.js
 export default function Home() {
-  return <div>Hello World </div>;
+    return (
+        <div>
+            <Navbar />
+            <h1>Welcome to the Homepage!</h1>
+        </div>
+    );
 }
