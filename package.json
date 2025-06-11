@@ -10,6 +10,7 @@
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/supabase-js": "^2.50.0",
     "autoprefixer": "^10.4.21",
+    "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.6",
     "next": "13.4.4",
     "postcss": "^8.5.4",
