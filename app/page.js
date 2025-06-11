@@ -7,6 +7,8 @@ export default function Home() {
         <div>
             <Navbar />
             <h1>Welcome to the Homepage!</h1>
+            <h1>Welcome, User!</h1>
+            <a href="/logout">Logout</a>
         </div>
     );
 }

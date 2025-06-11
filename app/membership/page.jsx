@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { PersonBadgeFill } from "react-bootstrap-icons";
-
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import Navbars from "../components/navbars";
 
 function Membership() {
-  const [formData, setFormData] = useState({
+  const supabase = createClientComponentClient();
+  const [form, setForm] = useState({
     name: "",
     lastName: "",
     email: "",
@@ -16,67 +17,94 @@ function Membership() {
     membership: "",
   });
 
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
   const [registrations, setRegistrations] = useState([]);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.name) newErrors.name = "First name is required";
-    if (!formData.lastName) newErrors.lastName = "Last name is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    if (!formData.phone) newErrors.phone = "Phone is required";
-    if (!formData.address) newErrors.address = "Address is required";
-    if (!formData.city) newErrors.city = "City is required";
-    if (!formData.membership) newErrors.membership = "Select a membership type";
+    if (!form.name) newErrors.name = "First name is required";
+    if (!form.lastName) newErrors.lastName = "Last name is required";
+    if (!form.email) newErrors.email = "Email is required";
+    if (!form.phone) newErrors.phone = "Phone is required";
+    if (!form.address) newErrors.address = "Address is required";
+    if (!form.city) newErrors.city = "City is required";
+    if (!form.membership) newErrors.membership = "Select a membership type";
     return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setMessage("");
+    setSubmitted(false);
+
+    // Validate form
     const validationErrors = validateForm();
     setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
-      try {
-        const res = await fetch("/api/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        const result = await res.json();
-
-        if (res.ok) {
-          setSubmitted(true);
-          setFormData({
-            name: "",
-            lastName: "",
-            email: "",
-            phone: "",
-            address: "",
-            city: "",
-            membership: "",
-          });
-          setErrors({});
-        } else {
-          alert("Error: " + result.message);
-        }
-      } catch (error) {
-        console.error("Submission failed:", error);
-        alert("An error occurred while submitting the form.");
-      }
+    if (Object.keys(validationErrors).length > 0) {
+      setLoading(false);
+      return;
     }
+
+    // Check if email or phone already exists
+    const { data: existing, error: fetchError } = await supabase
+      .from("members")
+      .select("*")
+      .or(`email.eq.${form.email},phone.eq.${form.phone}`);
+
+    if (fetchError) {
+      setMessage(
+        "Error checking existing registrations: " + fetchError.message
+      );
+      setLoading(false);
+      return;
+    }
+
+    if (existing && existing.length > 0) {
+      const emailExists = existing.some((entry) => entry.email === form.email);
+      const phoneExists = existing.some((entry) => entry.phone === form.phone);
+      setErrors({
+        ...validationErrors,
+        ...(emailExists && { email: "Email is already registered" }),
+        ...(phoneExists && { phone: "Phone is already registered" }),
+      });
+      setLoading(false);
+      return;
+    }
+
+    // Insert new member
+    const { error } = await supabase.from("members").insert({
+      ...form,
+    });
+
+    if (error) {
+      setMessage("Error: " + error.message);
+      setSubmitted(false);
+    } else {
+      setMessage("User added successfully!");
+      setForm({
+        name: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        address: "",
+        city: "",
+        membership: "",
+      });
+      setSubmitted(true);
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -126,7 +154,7 @@ function Membership() {
                           className="bg-grey-100"
                           placeholder=""
                           name="name"
-                          value={formData.name}
+                          value={form.name}
                           onChange={handleChange}
                           isInvalid={!!errors.name}
                         />
@@ -143,7 +171,7 @@ function Membership() {
                           style={{ backgroundColor: "#e8edea" }}
                           placeholder=""
                           name="lastName"
-                          value={formData.lastName}
+                          value={form.lastName}
                           onChange={handleChange}
                           isInvalid={!!errors.lastName}
                         />
@@ -160,7 +188,7 @@ function Membership() {
                           placeholder=""
                           style={{ backgroundColor: "#e8edea" }}
                           name="email"
-                          value={formData.email}
+                          value={form.email}
                           onChange={handleChange}
                           isInvalid={!!errors.email}
                         />
@@ -177,7 +205,7 @@ function Membership() {
                           placeholder=""
                           style={{ backgroundColor: "#e8edea" }}
                           name="phone"
-                          value={formData.phone}
+                          value={form.phone}
                           onChange={handleChange}
                           isInvalid={!!errors.phone}
                         />
@@ -194,7 +222,7 @@ function Membership() {
                           placeholder=""
                           style={{ backgroundColor: "#e8edea" }}
                           name="address"
-                          value={formData.address}
+                          value={form.address}
                           onChange={handleChange}
                           isInvalid={!!errors.address}
                         />
@@ -211,7 +239,7 @@ function Membership() {
                           placeholder=""
                           style={{ backgroundColor: "#e8edea" }}
                           name="city"
-                          value={formData.city}
+                          value={form.city}
                           onChange={handleChange}
                           isInvalid={!!errors.city}
                         />
@@ -228,7 +256,7 @@ function Membership() {
                         <Form.Label>Membership Type</Form.Label>
                         <Form.Select
                           name="membership"
-                          value={formData.membership}
+                          value={form.membership}
                           onChange={handleChange}
                           isInvalid={!!errors.membership}
                         >
