@@ -114,7 +114,7 @@ function Membership() {
       <Container className="my-3">
         <Row
           className="text-white py-4 mb-4"
-          style={{ borderRadius: "8px", background: "#2db300" }}
+          style={{ borderRadius: "8px", background: "#454034" }}
         >
           <Col
             md={12}

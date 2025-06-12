@@ -6,6 +6,7 @@ import { Navbar, NavDropdown, Nav, Modal, Button } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import CrickLogo from "../assets/logo.png";
 import AuthModal from "./authmodal";
+import "./navbar.css"; // Assuming you have a CSS file for custom styles
 
 function Navbars() {
   const [showLogin, setShowLogin] = useState(false);
@@ -26,7 +27,13 @@ function Navbars() {
 
   return (
     <>
-      <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary px-3">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        // style={{ backgroundColor: "#e9ecef" }}
+        style={{ backgroundColor: "" }}
+        className="navbar-custom px-3 navbar-large-text"
+      >
         <Navbar.Brand href="/" className="ms-2">
           <Image
             src={CrickLogo}
