@@ -4,6 +4,7 @@ import { PersonBadgeFill } from "react-bootstrap-icons";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import Navbars from "../components/navbars";
+import Accordations from "../components/accordation";
 
 function Membership() {
   const supabase = createClientComponentClient();
@@ -127,13 +128,8 @@ function Membership() {
         <Row className="justify-content-center">
           <Col md={4} className="mb-0">
             <div className="card p-3 text-center">
-              <h2>Basic Plan</h2>
-              <p>$10/month</p>
-              <ul className="list-unstyled">
-                <li>Access to basic features</li>
-                <li>Email support</li>
-              </ul>
-              <button className="btn btn-primary">Join Now</button>
+              <p>something here!</p>
+              <Accordations />
             </div>
           </Col>
           <Col md={7} className="mb-0">
