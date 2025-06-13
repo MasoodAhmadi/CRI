@@ -128,7 +128,7 @@ function Membership() {
         <Row className="justify-content-center">
           <Col md={4} className="mb-0">
             <div className="card p-3 text-center">
-              <p>something here!</p>
+              <strong className="m-2 p-2">Rules or Guidelines</strong>
               <Accordations />
             </div>
           </Col>
