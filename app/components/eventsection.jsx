@@ -34,6 +34,7 @@ export default function EventSection() {
 
   return (
     <div
+      id="events"
       className="py-5 px-3"
       style={{
         background:

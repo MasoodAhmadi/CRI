@@ -10,3 +10,32 @@
 .navbar-custom .nav-link:hover {
   color: #d4fcd4 !important;
 }
+
+.navbar-large-text .nav-link,
+.navbar-large-text .navbar-brand,
+.navbar-large-text .dropdown-item {
+  font-size: 1.55rem;
+  font-weight: 500;
+}
+
+.navbar-large-text .nav-link {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+.custom-login-btn {
+  background-color: #28a745 !important;
+  border-color: #28a745 !important;
+  color: #fff !important;
+}
+.custom-login-btn:hover,
+.custom-login-btn:focus {
+  background-color: #218838 !important;
+  border-color: #218838 !important;
+}
+
+.navbar-large-text .nav-link:hover,
+.navbar-large-text .nav-link:focus {
+  color: #dc3545 !important;
+  transition: color 0.2s;
+}

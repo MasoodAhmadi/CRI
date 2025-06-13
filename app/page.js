@@ -61,7 +61,7 @@ export default function Home() {
             </Carousel>
 
             {/* 2. About Us Section */}
-            <Container fluid className="py-5 px-4 bg-light">
+            <Container fluid className="py-5 px-4 bg-light" id='features'>
                 <Row className="align-items-center gx-5 gy-4">
                     {/* Left Column - Image */}
                     <Col md={6} className="text-center">

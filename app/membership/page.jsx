@@ -115,13 +115,14 @@ function Membership() {
       <Container className="my-3">
         <Row
           className="text-white py-4 mb-4"
-          style={{ borderRadius: "8px", background: "#454034" }}
+          style={{ borderRadius: "8px", background: "#232323" }}
         >
           <Col
             md={12}
             className="text-center d-flex flex-row align-items-center justify-content-center gap-2"
           >
-            <h1>Membership</h1> <PersonBadgeFill size={35} />
+            <h1 className="display-3">Membership</h1>{" "}
+            <PersonBadgeFill size={55} />
             {/* <p>Join us to unlock exclusive features and benefits!</p> */}
           </Col>
         </Row>
