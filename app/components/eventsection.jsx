@@ -68,7 +68,7 @@ export default function EventSection() {
             /> */}
           </div>
         </div>
-        <Container className="">
+        <Container className="mb-4">
           <Row className="g-2 justify-content-center">
             {" "}
             {events.map((event) => (
@@ -77,13 +77,10 @@ export default function EventSection() {
                 md={12}
                 lg={6}
                 xl={6}
-                className="mt-3"
+                className="mt-3 mb-3"
                 key={event.id}
               >
-                <Card
-                  className="h-100 text-center shadow-sm "
-                  // style={{ width: "38rem" }}
-                >
+                <Card className="h-100 text-center shadow-sm mb-3">
                   <Card.Body>
                     <div
                       style={{

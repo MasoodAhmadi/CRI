@@ -129,7 +129,10 @@ export default function Home() {
 
 
             {/* 3. News Section (your provided component) */}
-            <EventSection />
+            <div id='events' className="py-5" >
+
+                <EventSection />
+            </div>
 
             {/* 3. Sponser Section */}
             <div
