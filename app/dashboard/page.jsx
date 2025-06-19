@@ -1,16 +1,16 @@
 "use client";
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Container, Row, Col, FormCheck, Card } from "react-bootstrap";
-import { Table, Form, Button } from "react-bootstrap";
-import { ArrowLeft, PlusLg } from "react-bootstrap-icons";
-import { supabase } from "../../supabaseClient";
 import { paginate } from "../utils/paginate";
 import UserList from "../components/userlist";
-import PaginationComponent from "../components/pagination";
 import Navbars from "../components/navbars";
+import { supabase } from "../../supabaseClient";
+import Membership from "../components/membership";
 import useWindowSize from "../utils/useWindowsSize";
-// import UserSaveModal from "../components/UserSaveModal"; // optional
+import { Table, Form, Button } from "react-bootstrap";
+import { ArrowLeft, PlusLg } from "react-bootstrap-icons";
+import PaginationComponent from "../components/pagination";
+import { Container, Row, Col, FormCheck, Card, Modal } from "react-bootstrap";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -19,8 +19,10 @@ export default function DashboardPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchInputValue, setSearchInputValue] = useState("");
   const [showDeleted, setShowDeleted] = useState(false);
+  const [show, setShow] = useState(false);
   const [pageSize] = useState(10);
   const size = useWindowSize();
+
   const fetchUsers = async () => {
     const { data, error } = await supabase.from("members").select("*");
     if (!error) setMemberships(data);
@@ -81,7 +83,6 @@ export default function DashboardPage() {
       console.error("Error updating approval:", error.message);
       alert("Failed to update approval.");
     } else {
-      // Update local state to reflect approval change
       setMemberships((prev) =>
         prev.map((user) =>
           user.id === id ? { ...user, approved: !currentState } : user
@@ -89,6 +90,9 @@ export default function DashboardPage() {
       );
     }
   };
+
+  const closeModalRegistration = () => setShow(false);
+  const OpenModalRegistration = () => setShow(true);
 
   if (isLoading) {
     return (
@@ -130,7 +134,6 @@ export default function DashboardPage() {
               completed. Once the payment is confirmed, the registration will be
               marked as approved.
             </Card.Text>
-            {/* <Button variant="primary">Go somewhere</Button> */}
           </Card.Body>
         </Card>
 
@@ -153,15 +156,22 @@ export default function DashboardPage() {
               </Col>
 
               <Col md={2}>
-                <Button
-                  className="w-100"
-                  onClick={
-                    () => alert("Open User Save Modal (implement separately)")
-                    // dispatch(openModal({ content: <UserSaveModal />, options: { size: "lg" } }))
-                  }
-                >
+                <Button className="w-100" onClick={OpenModalRegistration}>
                   <PlusLg size={20} /> Add User
                 </Button>
+                <Modal
+                  show={show}
+                  onHide={closeModalRegistration}
+                  centered
+                  size="lg"
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                      Admin user registration
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Membership />
+                </Modal>
               </Col>
             </>
           ) : (
@@ -176,16 +186,23 @@ export default function DashboardPage() {
               </Col>
 
               <Col xs={5}>
-                <Button
-                  // className="w-60"
-                  style={{ width: "80%" }}
-                  onClick={
-                    () => alert("Open User Save Modal (implement separately)")
-                    // dispatch(openModal({ content: <UserSaveModal />, options: { size: "lg" } }))
-                  }
-                >
-                  <PlusLg size={12} /> Add User
+                <Button className="w-100" onClick={OpenModalRegistration}>
+                  <PlusLg size={20} /> Add User
                 </Button>
+
+                <Modal
+                  show={show}
+                  onHide={closeModalRegistration}
+                  aria-labelledby="contained-modal-title-vcenter"
+                  centered
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                      Admin user registration
+                    </Modal.Title>
+                  </Modal.Header>
+                  <Membership />
+                </Modal>
               </Col>
             </>
           )}
@@ -209,7 +226,15 @@ export default function DashboardPage() {
           />
         </div>
         {/* <Container className="mt-3"> */}
-        <Table striped hover responsive size="">
+        <Table
+          striped
+          hover
+          responsive="md"
+          size="sm"
+          style={{
+            fontSize: size.width < 786 ? "9px" : "inherit",
+          }}
+        >
           <thead>
             <tr>
               <th></th>
@@ -230,6 +255,7 @@ export default function DashboardPage() {
                 user={user}
                 key={user.id}
                 currentPage={currentPage}
+                size={size}
                 onDelete={onDeleteUser}
                 onToggleApprove={toggleApproval}
               />
