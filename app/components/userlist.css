@@ -1,0 +1,10 @@
+/* userlist.css */
+.approve-switch .form-check-input {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.green-switch .form-check-input:checked {
+  background-color: #28a745; /* Bootstrap green */
+  border-color: #28a745;
+}

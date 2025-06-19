@@ -1,50 +1,13 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { supabase } from "../../supabaseClient";
+import React from "react";
 
-export default function CreateNews() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const router = useRouter();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const { data, error } = await supabase
-      .from("news")
-      .insert([{ title, content }]);
-
-    if (error) {
-      alert("Error creating news: " + error.message);
-    } else {
-      router.push("/events");
-    }
-  };
-
+export default function EventsPage() {
   return (
     <div className="container py-5">
-      <h2>Create News</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          className="form-control my-2"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <textarea
-          className="form-control my-2"
-          placeholder="Content"
-          rows={6}
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-        />
-        <button className="btn btn-primary mt-2" type="submit">
-          Create
-        </button>
-      </form>
+      <h2>Events</h2>
+      <p>Welcome to the events page!</p>
+      <p>Here you can manage your events.</p>
+      {/* Add more content or components related to events here */}
     </div>
   );
 }

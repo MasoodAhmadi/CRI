@@ -2,20 +2,22 @@
 'use client';
 
 import React from 'react';
-
-import { Carousel, Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
 import Image from "next/image";
-
-import Navbar from './components/navbars';
-import EventSection from './components/eventsection';
-import logo from "./assets/logo.png"; // Adjust the path as necessary
-import { image1, image4 } from './utils/links';
 import { image2 } from './utils/links';
 import { image3 } from './utils/links';
-import Hewad from './assets/hewad.png'; // Adjust the path as necessary
+import Hewad from './assets/hewad.png';
 import Footer from './components/footer';
+import Navbar from './components/navbars';
+import { image1, image4 } from './utils/links';
+import EventSection from './components/eventsection';
+import { Carousel, Container, Row, Col, ListGroup } from 'react-bootstrap';
+import useWindowSize from './utils/useWindowsSize';
+import ScrollToTop from './components/scroll';
+import './globals.css'; // Ensure you have a global CSS file for styles
+
 
 export default function Home() {
+    const size = useWindowSize();
 
 
 
@@ -31,10 +33,17 @@ export default function Home() {
                         src={image1}
                         alt="First slide"
                     />
-                    <Carousel.Caption>
-                        <h2>Shpageeza Cricket</h2>
-                        <strong>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</strong>
-                    </Carousel.Caption>
+                    {size.width > 782 ? (
+                        <div className="carousel-caption d-none d-md-block">
+                            <h2>Shpageeza Cricket</h2>
+                            <strong>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</strong>
+                        </div>
+                    ) : (
+                        <Carousel.Caption>
+                            <p style={{ fontSize: "0.6rem", marginBottom: "0.5rem" }}>Shpageeza Cricket</p>
+                            <p style={{ fontSize: "0.5rem", marginBottom: "0.5rem" }}>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</p>
+                        </Carousel.Caption>
+                    )}
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
@@ -42,10 +51,17 @@ export default function Home() {
                         src={image2}
                         alt="Second slide"
                     />
-                    <Carousel.Caption>
-                        <h2>Shpageeza Cricket</h2>
-                        <strong>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</strong>
-                    </Carousel.Caption>
+                    {size.width > 782 ? (
+                        <div className="carousel-caption d-none d-md-block">
+                            <h2>Shpageeza Cricket</h2>
+                            <strong>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</strong>
+                        </div>
+                    ) : (
+                        <Carousel.Caption>
+                            <p style={{ fontSize: "0.6rem", marginBottom: "0.5rem" }}>Shpageeza Cricket</p>
+                            <p style={{ fontSize: "0.5rem", marginBottom: "0.5rem" }}>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</p>
+                        </Carousel.Caption>
+                    )}
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
@@ -53,15 +69,22 @@ export default function Home() {
                         src={image3}
                         alt="Third slide"
                     />
-                    <Carousel.Caption>
-                        <h2>Shpageeza Cricket</h2>
-                        <strong>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</strong>
-                    </Carousel.Caption>
+                    {size.width > 782 ? (
+                        <div className="carousel-caption d-none d-md-block">
+                            <h2>Shpageeza Cricket</h2>
+                            <strong>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</strong>
+                        </div>
+                    ) : (
+                        <Carousel.Caption>
+                            <p style={{ fontSize: "0.6rem", marginBottom: "0.5rem" }}>Shpageeza Cricket</p>
+                            <p style={{ fontSize: "0.5rem", marginBottom: "0.5rem" }}>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</p>
+                        </Carousel.Caption>
+                    )}
                 </Carousel.Item>
             </Carousel>
 
             {/* 2. About Us Section */}
-            <Container fluid className="py-5 px-4 bg-light" id='features'>
+            <Container fluid className="py-5 px-4" id='features'>
                 <Row className="align-items-center gx-5 gy-4">
                     {/* Left Column - Image */}
                     <Col md={6} className="text-center">
@@ -79,7 +102,7 @@ export default function Home() {
 
                     {/* Right Column - Text + List */}
                     <Col md={6}>
-                        <h2 className="mb-4 fw-bold text-primary text-center text-md-start">
+                        <h2 className="mb-4 fw-bold text-dark text-center text-md-start">
                             About Us
                         </h2>
                         <p className="fs-5 text-muted lh-lg mb-4">
@@ -109,43 +132,30 @@ export default function Home() {
             <EventSection />
 
             {/* 3. Sponser Section */}
-            <style jsx>{`
-    .float-horizontal {
-    animation: floatX 4s ease-in-out infinite;
-    display: inline-block;
-    margin: 0 auto;}
-
-     @keyframes floatX {
-     0% {
-       transform: translateX(0px);
-     }
-     50% {
-       transform: translateX(15px);
-      }
-        100% {
-       transform: translateX(0px);
-       }
-     }
-        `}</style>
-
             <div
                 style={{
                     width: "100%",
-                    background: "linear-gradient(135deg, #e0f7e9, #cce5ff)",
+                    background: "#fdfdfd",
                     padding: "60px 20px",
                     borderRadius: "0",
-                    boxShadow: "inset 0 -1px 5px rgba(0,0,0,0.05)",
+                    boxShadow: "inset 0 -1px 5px rgba(93, 93, 93, 0.05)",
                 }}
             >
-                <h2 className="text-center mb-5 fw-bold text-primary">Our Sponsors</h2>
-                <Row className="g-4 text-center justify-content-center mx-0">
-                    <Col xs={12} md={4}>
-                        <div className="float-horizontal">
+                <h2 className="text-center mb-5 fw-bold text-dark">Our Sponsors</h2>
+                <Row className="g-4 d-flex text-center justify-content-center mx-0">
+                    <Col xs={12} md={4} className=''>
+                        <div className="d-flex justify-content-center align-items-center" style={{ height: "100%" }}>
                             <div
+                                className="float-horizontal"
+
                                 style={{
                                     padding: "20px",
                                     borderRadius: "12px",
+                                    background: "#fff",
                                     boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center"
                                 }}
                             >
                                 <Image
@@ -165,32 +175,39 @@ export default function Home() {
                     </Col>
 
                     <Col xs={12} md={4}>
-                        <div className="float-horizontal">
+                        <div className="d-flex justify-content-center align-items-center" style={{ height: "100%" }}>
                             <div
+                                className="float-horizontal"
                                 style={{
                                     padding: "20px",
                                     borderRadius: "12px",
+                                    background: "#fff",
                                     boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    alignItems: "center"
                                 }}
                             >
                                 <Image
                                     src={Hewad}
-                                    alt="Sponsor 2"
+                                    alt="Sponsor"
                                     width={160}
                                     height={160}
                                     fluid
                                     className="mb-3"
-                                    style={{ objectFit: "contain" }}
+                                    style={{ objectFit: "contain", display: "block", margin: "0 auto" }}
                                 />
-                                <p className="text-muted small mb-0">
-                                    Sponsor Two has generously contributed to our events and outreach.
+                                <p className="text-muted small mb-0 text-center">
+                                    Sponsor One has been a key supporter of our mission and growth.
                                 </p>
                             </div>
                         </div>
                     </Col>
                 </Row>
             </div>
+            <ScrollToTop />
             <Footer />
+
         </div >
     );
 };

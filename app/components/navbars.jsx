@@ -6,7 +6,7 @@ import { Navbar, Nav, Modal, Button } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import CrickLogo from "../assets/logo.png";
 import AuthModal from "./authmodal";
-import "./navbar.css"; // Assuming you have a CSS file for custom styles
+import "./navbar.css";
 
 function Navbars() {
   const [showLogin, setShowLogin] = useState(false);
@@ -14,7 +14,6 @@ function Navbars() {
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user exists in localStorage
     const user = localStorage.getItem("user");
     setUserLoggedIn(!!user);
   }, []);
@@ -57,7 +56,7 @@ function Navbars() {
                   variant="outline-danger"
                   size="sm"
                   onClick={handleLogout}
-                  className="rounded-pill px-3 py-1 text-nowrap shadow-sm w-100 w-sm-auto"
+                  className="rounded-pill px-3 py-1 text-nowrap shadow-sm"
                 >
                   Logout
                 </Button>

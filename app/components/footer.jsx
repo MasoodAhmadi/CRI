@@ -9,29 +9,22 @@ export default function Footer() {
       <Container>
         <Row>
           <Col md={4} className="mb-3 mb-md-0">
-            <a
-              href="#"
-              className="me-3"
-              style={{ color: "#3b5998" }} // Facebook Blue
-              aria-label="Facebook"
-            >
-              <FaFacebook size={24} />
-            </a>
-            <a
-              href="#"
-              className="me-3"
-              style={{ color: "#1DA1F2" }} // Twitter Blue
-              aria-label="Twitter"
-            >
-              <FaTwitter size={24} />
-            </a>
-            <a
-              href="#"
-              style={{ color: "#E1306C" }} // Instagram Pink
-              aria-label="Instagram"
-            >
-              <FaInstagram size={24} />
-            </a>
+            <div className="mb-2 d-flex justify-content-center">
+              <a
+                href="#"
+                className="me-3"
+                style={{ color: "#3b5998" }}
+                aria-label="Facebook"
+              >
+                <FaFacebook size={24} />
+              </a>
+              <a href="#" className="me-3" style={{ color: "#1DA1F2" }}>
+                <FaTwitter size={24} />
+              </a>
+              <a href="#" style={{ color: "#E1306C" }} aria-label="Instagram">
+                <FaInstagram size={24} />
+              </a>
+            </div>
           </Col>
 
           <Col md={4} className="mb-3 mb-md-0">

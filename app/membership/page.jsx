@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import { PersonBadgeFill } from "react-bootstrap-icons";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import Navbars from "../components/navbars";
 import Accordations from "../components/accordation";
+import { PersonBadgeFill } from "react-bootstrap-icons";
+import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 function Membership() {
   const supabase = createClientComponentClient();
@@ -16,6 +16,7 @@ function Membership() {
     address: "",
     city: "",
     membership: "",
+    approved: false,
   });
 
   const [loading, setLoading] = useState(false);
@@ -101,6 +102,7 @@ function Membership() {
         address: "",
         city: "",
         membership: "",
+        approved: false,
       });
       setSubmitted(true);
     }
@@ -123,7 +125,6 @@ function Membership() {
           >
             <h1 className="display-3">Membership</h1>{" "}
             <PersonBadgeFill size={55} />
-            {/* <p>Join us to unlock exclusive features and benefits!</p> */}
           </Col>
         </Row>
         <Row className="justify-content-center">
