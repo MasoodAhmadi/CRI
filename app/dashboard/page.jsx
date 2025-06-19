@@ -1,7 +1,7 @@
 "use client";
 import React, { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Container, Row, Col, FormCheck } from "react-bootstrap";
+import { Container, Row, Col, FormCheck, Card } from "react-bootstrap";
 import { Table, Form, Button } from "react-bootstrap";
 import { ArrowLeft, PlusLg } from "react-bootstrap-icons";
 import { supabase } from "../../supabaseClient";
@@ -95,6 +95,7 @@ export default function DashboardPage() {
       <div className="d-flex justify-content-center align-items-center vh-100">
         <div className="text-center">
           <div className="spinner-border text-primary mb-3" role="status" />
+          {/* here will be loader later */}
           <p className="fw-semibold text-muted">Checking authentication...</p>
         </div>
       </div>
@@ -112,6 +113,27 @@ export default function DashboardPage() {
           className="mb-3"
           onClick={() => router.push("/")}
         />
+
+        <Card
+          style={{
+            width: "100%",
+            backgroundColor: "#e3e4e6",
+            borderColor: "#4cb04f",
+          }}
+          className="mb-4"
+        >
+          <Card.Body>
+            <Card.Title>Important!!</Card.Title>
+            <Card.Text>
+              All player registrations for the cricket tournament in Tampere
+              will be reviewed to verify if the payment has been successfully
+              completed. Once the payment is confirmed, the registration will be
+              marked as approved.
+            </Card.Text>
+            {/* <Button variant="primary">Go somewhere</Button> */}
+          </Card.Body>
+        </Card>
+
         <h1>Player Management</h1>
         <p>
           {filteredUsers.length}{" "}
