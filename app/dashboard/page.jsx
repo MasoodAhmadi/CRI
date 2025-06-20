@@ -156,8 +156,15 @@ export default function DashboardPage() {
               </Col>
 
               <Col md={2}>
-                <Button className="w-100" onClick={OpenModalRegistration}>
-                  <PlusLg size={20} /> Add User
+                <Button
+                  className="w-100 d-flex justify-content-center gap-2"
+                  onClick={OpenModalRegistration}
+                >
+                  <PlusLg
+                    size={15}
+                    className="d-flex justify-content-center mt-1"
+                  />{" "}
+                  Add User
                 </Button>
                 <Modal
                   show={show}
@@ -170,7 +177,7 @@ export default function DashboardPage() {
                       Admin user registration
                     </Modal.Title>
                   </Modal.Header>
-                  <Membership />
+                  <Membership onMemberAdded={fetchUsers} />
                 </Modal>
               </Col>
             </>
@@ -186,8 +193,15 @@ export default function DashboardPage() {
               </Col>
 
               <Col xs={5}>
-                <Button className="w-100" onClick={OpenModalRegistration}>
-                  <PlusLg size={20} /> Add User
+                <Button
+                  className="w-100 d-flex justify-content-center gap-2"
+                  onClick={OpenModalRegistration}
+                >
+                  <PlusLg
+                    size={15}
+                    className="d-flex justify-content-center mt-1"
+                  />
+                  Add Player
                 </Button>
 
                 <Modal

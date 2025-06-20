@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from "react";
-
-import { PersonBadgeFill } from "react-bootstrap-icons";
 import Accordations from "./accordation";
+import { ToastContainer, toast } from "react-toastify";
+import { PersonBadgeFill } from "react-bootstrap-icons";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-export default function Membership() {
+export default function Membership({ onMemberAdded }) {
   const supabase = createClientComponentClient();
   const [form, setForm] = useState({
     name: "",
@@ -22,7 +22,6 @@ export default function Membership() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const [registrations, setRegistrations] = useState([]);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
@@ -48,7 +47,6 @@ export default function Membership() {
     setMessage("");
     setSubmitted(false);
 
-    // Validate form
     const validationErrors = validateForm();
     setErrors(validationErrors);
 
@@ -57,7 +55,6 @@ export default function Membership() {
       return;
     }
 
-    // Check if email or phone already exists
     const { data: existing, error: fetchError } = await supabase
       .from("members")
       .select("*")
@@ -104,6 +101,16 @@ export default function Membership() {
         approved: false,
       });
       setSubmitted(true);
+      await onMemberAdded();
+      toast.success("Form submitted successfully!", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
 
     setLoading(false);
@@ -137,6 +144,8 @@ export default function Membership() {
                 {submitted && (
                   <Alert variant="success">Form submitted successfully!</Alert>
                 )}
+                <ToastContainer />
+
                 <Form noValidate onSubmit={handleSubmit}>
                   <Row>
                     <Col md={6}>
