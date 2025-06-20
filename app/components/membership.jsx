@@ -1,13 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Accordations from "./accordation";
 import { ToastContainer, toast } from "react-toastify";
 import { PersonBadgeFill } from "react-bootstrap-icons";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-export default function Membership({ onMemberAdded }) {
+export default function Membership() {
   const supabase = createClientComponentClient();
+
+  const [memberships, setMemberships] = useState([]);
+
   const [form, setForm] = useState({
     name: "",
     lastName: "",
@@ -24,6 +27,14 @@ export default function Membership({ onMemberAdded }) {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const fetchUsers = async () => {
+    const { data, error } = await supabase.from("members").select("*");
+    if (!error) setMemberships(data);
+    else console.error("Error fetching memberships:", error.message);
+  };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -102,7 +113,7 @@ export default function Membership({ onMemberAdded }) {
         approved: false,
       });
       setSubmitted(true);
-      await onMemberAdded();
+      await fetchUsers();
       toast.success("Form submitted successfully!", {
         position: "bottom-left",
         autoClose: 5000,

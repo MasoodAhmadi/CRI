@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Navbar, Nav, Modal, Button } from "react-bootstrap";
 import { useRouter } from "next/navigation";
-import CrickLogo from "../assets/logo.png";
+import CrickLogo from "../assets/AfghanTampereSports.png";
 import AuthModal from "./authmodal";
 import "./navbar.css";
 
