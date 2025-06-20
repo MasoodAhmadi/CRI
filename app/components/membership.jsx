@@ -41,6 +41,7 @@ export default function Membership({ onMemberAdded }) {
     if (!form.membership) newErrors.membership = "Select a membership type";
     return newErrors;
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
