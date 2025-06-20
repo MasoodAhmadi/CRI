@@ -22,7 +22,6 @@ export default function DashboardPage() {
   const [show, setShow] = useState(false);
   const [pageSize] = useState(10);
   const size = useWindowSize();
-  const [registrations, setRegistrations] = useState([]);
 
   const fetchUsers = async () => {
     const { data, error } = await supabase.from("members").select("*");
