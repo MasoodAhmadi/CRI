@@ -1,24 +1,32 @@
 // app/page.js
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import { image2 } from './utils/links';
 import { image3 } from './utils/links';
 import Hewad from './assets/hewad.png';
 import Footer from './components/footer';
 import Navbar from './components/navbars';
+import { dummyEvents } from '../data/data';
 import { image1, image4 } from './utils/links';
-import EventSection from './components/eventsection';
-import { Carousel, Container, Row, Col, ListGroup } from 'react-bootstrap';
-import useWindowSize from './utils/useWindowsSize';
 import ScrollToTop from './components/scroll';
-import './globals.css'; // Ensure you have a global CSS file for styles
+import useWindowSize from './utils/useWindowsSize';
+import { ArrowRight } from "react-bootstrap-icons";
+import { Card, Button, Nav } from "react-bootstrap";
+import { Carousel, Container, Row, Col, ListGroup } from 'react-bootstrap';
+import './globals.css';
 
 
 export default function Home() {
     const size = useWindowSize();
+    const [events, setEvents] = useState([]);
 
+    useEffect(() => {
+        setTimeout(() => {
+            setEvents(dummyEvents);
+        }, 500);
+    }, []);
 
 
     return (
@@ -131,7 +139,89 @@ export default function Home() {
             {/* 3. News Section (your provided component) */}
             <div id='events' className="py-5" >
 
-                <EventSection />
+                <div className="position-relative" style={{ minHeight: "700px" }}>
+                    <img
+                        fluid
+                        loading="lazy"
+                        src={image3}
+                        alt="a description of the image"
+                        className="top-0 left-0 w-100 h-100 object-fit-cover position-absolute"
+                    />
+                    <div
+                        className="position-relative"
+                        style={{ backgroundColor: "", minHeight: "500px" }}
+                    >
+                        <div className="container pt-5 d-flex flex-row justify-content-between align-items-center">
+                            <h1 className="text-light" style={{ fontWeight: 700 }}>
+                                Events
+                            </h1>
+                            <div
+                                className="d-flex flex-row justify-content-center align-items-center"
+                                role="button"
+                                onClick={() => navigate("/events")}
+                            >
+                                <p className="m-0 text-light" style={{ fontWeight: 500 }}>
+                                    <Nav.Link href="/events">all Events</Nav.Link>
+                                </p>
+                                <ArrowRight className="mx-3" size={21} style={{ color: "#fff" }} />
+
+                            </div>
+                        </div>
+                        <Container className="mb-4">
+                            <Row className="g-2 justify-content-center">
+                                {" "}
+                                {events.map((event) => (
+                                    <Col
+                                        sm={12}
+                                        md={12}
+                                        lg={6}
+                                        xl={6}
+                                        className="mt-3 mb-3"
+                                        key={event.id}
+                                    >
+                                        <Card className="h-100 text-center shadow-sm mb-3">
+                                            <Card.Body>
+                                                <div
+                                                    style={{
+                                                        backgroundColor: "#4caf50",
+                                                        width: "80px",
+                                                        height: "80px",
+                                                        margin: "0 auto 20px auto",
+                                                        borderRadius: "20px",
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "center",
+                                                    }}
+                                                >
+                                                    <span style={{ fontSize: "36px", color: "#4caf50" }}>
+                                                        🎙️
+                                                    </span>
+                                                </div>
+                                                <Card.Title className="fw-bold text-dark">
+                                                    {event.title}
+                                                </Card.Title>
+                                                <p className="text-muted small mb-2">
+                                                    {event.author} - {event.date}
+                                                </p>
+                                                <hr />
+                                                <Card.Text className="text-muted small">
+                                                    {event.description}
+                                                </Card.Text>
+                                                <Button
+                                                    variant="success"
+                                                    className="mt-3 px-4"
+                                                    href={`/events/${event.id}`}
+                                                >
+                                                    Read More
+                                                </Button>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col>
+                                ))}
+                            </Row>
+                        </Container>
+                    </div>
+                </div>
             </div>
 
             {/* 3. Sponser Section */}
