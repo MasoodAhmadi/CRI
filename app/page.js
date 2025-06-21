@@ -17,6 +17,7 @@ import { ArrowRight } from "react-bootstrap-icons";
 import { Card, Button, Nav } from "react-bootstrap";
 import { Carousel, Container, Row, Col, ListGroup } from 'react-bootstrap';
 import './globals.css';
+import Carousels from './components/carousel';
 
 
 const dummyEvents = [
@@ -54,62 +55,7 @@ export default function Home() {
     <div>
       {/* 1. Carousel Section */}
       <Navbar />
-      <Carousel fade>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={Events}
-            alt="First slide"
-          />
-          {size.width > 782 ? (
-            <div className="carousel-caption d-none d-md-block">
-              <h2>Shpageeza Cricket</h2>
-              <strong>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</strong>
-            </div>
-          ) : (
-            <Carousel.Caption>
-              <p style={{ fontSize: "0.6rem", marginBottom: "0.5rem" }}>Shpageeza Cricket</p>
-              <p style={{ fontSize: "0.5rem", marginBottom: "0.5rem" }}>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</p>
-            </Carousel.Caption>
-          )}
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={image2}
-            alt="Second slide"
-          />
-          {size.width > 782 ? (
-            <div className="carousel-caption d-none d-md-block">
-              <h2>Shpageeza Cricket</h2>
-              <strong>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</strong>
-            </div>
-          ) : (
-            <Carousel.Caption>
-              <p style={{ fontSize: "0.6rem", marginBottom: "0.5rem" }}>Shpageeza Cricket</p>
-              <p style={{ fontSize: "0.5rem", marginBottom: "0.5rem" }}>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</p>
-            </Carousel.Caption>
-          )}
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={image3}
-            alt="Third slide"
-          />
-          {size.width > 782 ? (
-            <div className="carousel-caption d-none d-md-block">
-              <h2>Shpageeza Cricket</h2>
-              <strong>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</strong>
-            </div>
-          ) : (
-            <Carousel.Caption>
-              <p style={{ fontSize: "0.6rem", marginBottom: "0.5rem" }}>Shpageeza Cricket</p>
-              <p style={{ fontSize: "0.5rem", marginBottom: "0.5rem" }}>Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere - Finland</p>
-            </Carousel.Caption>
-          )}
-        </Carousel.Item>
-      </Carousel>
+      <Carousels size={size} />
 
       {/* 2. About Us Section */}
       <Container fluid className="py-5 px-4" id='features'>
