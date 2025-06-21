@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import CrickLogo from "../assets/AfghanTampereSports.png";
 import AuthModal from "./authmodal";
 import "./navbar.css";
+import SearchButton from "./search";
 
 function Navbars() {
   const [showLogin, setShowLogin] = useState(false);
@@ -45,16 +46,19 @@ function Navbars() {
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ms-auto me-3">
+          <Nav className="">
             <Nav.Link href="#features">ABOUT US</Nav.Link>
             <Nav.Link href="#events">EVENTS</Nav.Link>
             <Nav.Link href="/membership">MEMBERSHIP</Nav.Link>
+          </Nav>
+          <Nav className="ms-auto me-3 gap-3">
+            <SearchButton />
             {userLoggedIn ? (
               <>
                 <Nav.Link href="/dashboard">DASHBOARD</Nav.Link>
                 <Button
                   variant="outline-danger"
-                  size="sm"
+                  size=""
                   onClick={handleLogout}
                   className="rounded-pill px-3 py-1 text-nowrap shadow-sm"
                 >
@@ -62,13 +66,15 @@ function Navbars() {
                 </Button>
               </>
             ) : (
-              <Button
-                size="sm"
-                onClick={() => setShowLogin(true)}
-                className="rounded-pill px-3 py-1 text-nowrap shadow-sm custom-login-btn"
-              >
-                Login
-              </Button>
+              <>
+                <Button
+                  size=""
+                  onClick={() => setShowLogin(true)}
+                  className="rounded-pill px-3 py-1 text-nowrap shadow-sm custom-login-btn"
+                >
+                  Login
+                </Button>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>

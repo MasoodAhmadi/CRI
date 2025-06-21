@@ -276,9 +276,9 @@ export default function Home() {
               >
                 <Image
                   src={Hewad}
-                  alt="Sponsor 1"
-                  width={160}
-                  height={160}
+                  alt="Hewad Market"
+                  width={190}
+                  height={190}
                   fluid
                   className="mb-3"
                   style={{ objectFit: "contain" }}
@@ -306,9 +306,9 @@ export default function Home() {
               >
                 <Image
                   src={Hewad}
-                  alt="Sponsor"
-                  width={160}
-                  height={160}
+                  alt="Hewad Market"
+                  width={190}
+                  height={190}
                   fluid
                   className="mb-3"
                   style={{ objectFit: "contain", display: "block", margin: "0 auto" }}

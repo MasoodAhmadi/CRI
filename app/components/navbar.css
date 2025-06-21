@@ -4,11 +4,11 @@
 
 .navbar-custom .nav-link,
 .navbar-custom .navbar-brand {
-  color: white !important;
+  color: black !important;
 }
 
 .navbar-custom .nav-link:hover {
-  color: #d4fcd4 !important;
+  color: black !important;
 }
 
 .navbar-large-text .nav-link,

@@ -27,6 +27,7 @@ export default function Membership() {
 
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+
   const fetchUsers = async () => {
     const { data, error } = await supabase.from("members").select("*");
     if (!error) setMemberships(data);

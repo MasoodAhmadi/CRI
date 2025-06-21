@@ -157,6 +157,7 @@ export default function DashboardPage() {
 
               <Col md={2}>
                 <Button
+                  variant="success"
                   className="w-100 d-flex justify-content-center gap-2"
                   onClick={OpenModalRegistration}
                 >
@@ -164,7 +165,7 @@ export default function DashboardPage() {
                     size={15}
                     className="d-flex justify-content-center mt-1"
                   />{" "}
-                  Add User
+                  Add Player
                 </Button>
                 <Modal
                   show={show}
@@ -194,6 +195,7 @@ export default function DashboardPage() {
 
               <Col xs={5}>
                 <Button
+                  variant="success"
                   className="w-100 d-flex justify-content-center gap-2"
                   onClick={OpenModalRegistration}
                 >
