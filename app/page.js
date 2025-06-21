@@ -9,7 +9,8 @@ import Hewad from './assets/hewad.png';
 import logo from './assets/logo.png';
 import Footer from './components/footer';
 import Navbar from './components/navbars';
-import { image1, image4 } from './utils/links';
+import AboutUs from './assets/aboutus.jpg'
+import Events from './assets/event.jpg'
 import ScrollToTop from './components/scroll';
 import useWindowSize from './utils/useWindowsSize';
 import { ArrowRight } from "react-bootstrap-icons";
@@ -57,7 +58,7 @@ export default function Home() {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src={image1}
+            src={Events}
             alt="First slide"
           />
           {size.width > 782 ? (
@@ -115,8 +116,8 @@ export default function Home() {
         <Row className="align-items-center gx-5 gy-4">
           {/* Left Column - Image */}
           <Col md={6} className="text-center">
-            <img
-              src={image4}
+            <Image
+              src={AboutUs}
               alt="About us"
               className="img-fluid rounded-4 shadow-lg"
               style={{
