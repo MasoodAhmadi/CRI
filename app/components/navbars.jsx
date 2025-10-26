@@ -30,8 +30,7 @@ function Navbars() {
       <Navbar
         collapseOnSelect
         expand="lg"
-        style={{ backgroundColor: "" }}
-        className="navbar-custom px-3 navbar-large-text"
+        className="navbar-custom px-3 navbar-large-text shadow-sm"
       >
         <Navbar.Brand href="/" className="ms-2">
           <Image
@@ -46,19 +45,30 @@ function Navbars() {
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="">
-            <Nav.Link href="/#about">ABOUT US</Nav.Link>
-            <Nav.Link href="/#events">EVENTS</Nav.Link>
-            <Nav.Link href="/membership">MEMBERSHIP</Nav.Link>
+          {/* Left side links */}
+          <Nav className="me-auto">
+            <Nav.Link href="/#about" className="nav-link-custom">
+              ABOUT US
+            </Nav.Link>
+            <Nav.Link href="/#events" className="nav-link-custom">
+              EVENTS
+            </Nav.Link>
+            <Nav.Link href="/membership" className="nav-link-custom">
+              MEMBERSHIP
+            </Nav.Link>
           </Nav>
-          <Nav className="ms-auto me-3 gap-3">
+
+          {/* Right side links/buttons */}
+          <Nav className="ms-auto gap-3">
             <SearchButton />
             {userLoggedIn ? (
               <>
-                <Nav.Link href="/dashboard">DASHBOARD</Nav.Link>
+                <Nav.Link href="/dashboard" className="nav-link-custom">
+                  DASHBOARD
+                </Nav.Link>
                 <Button
                   variant="outline-danger"
-                  size=""
+                  size="sm"
                   onClick={handleLogout}
                   className="rounded-pill px-3 py-1 text-nowrap shadow-sm"
                 >
@@ -68,9 +78,9 @@ function Navbars() {
             ) : (
               <>
                 <Button
-                  size=""
+                  size="sm"
                   onClick={() => setShowLogin(true)}
-                  className="rounded-pill px-3 py-1 text-nowrap shadow-sm custom-login-btn"
+                  className="px-3 py-1 text-nowrap custom-login-btn"
                 >
                   Login
                 </Button>

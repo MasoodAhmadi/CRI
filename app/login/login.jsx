@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button, Card, Form } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 
-const Login = ({ onSwitchToRegister, onRegisterSuccess }) => {
+const Login = ({ onSwitchToRegister }) => {
   const router = useRouter();
 
   const [email, setEmail] = useState("");
