@@ -1,64 +1,36 @@
-// app/page.js
 'use client';
 
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
-import { image2 } from './utils/links';
 import { image3 } from './utils/links';
 import Hewad from './assets/hewad.png';
 import logo from './assets/logo.png';
 import Footer from './components/footer';
 import Navbar from './components/navbars';
 import AboutUs from './assets/aboutus.jpg'
-import Events from './assets/event.jpg'
+import Carousels from './components/carousel';
 import ScrollToTop from './components/scroll';
 import useWindowSize from './utils/useWindowsSize';
 import { ArrowRight } from "react-bootstrap-icons";
 import { Card, Button, Nav } from "react-bootstrap";
-import { Carousel, Container, Row, Col, ListGroup } from 'react-bootstrap';
+import { Container, Row, Col, ListGroup } from 'react-bootstrap';
+import { dummyEvents } from '../data/dummyData';
 import './globals.css';
-import Carousels from './components/carousel';
 
-
-const dummyEvents = [
-  {
-    id: 1,
-    title: "Shpazeeza Cricket Tournament 2025 in Hervanta, Tampere",
-    author: "Masood Ahmadi",
-    date: "15.11.2025 13:59",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-  {
-    id: 2,
-    title:
-      "Football Tournament 2025 in Hervanta, Tampere for Afghans comming soon",
-    author: "Farhad Sediqi",
-    date: "30.10.2025 09:50",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  },
-];
 export default function Home() {
 
   const size = useWindowSize();
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(dummyEvents);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setEvents(dummyEvents);
-    }, 500);
-  }, []);
-
+  // console.log("Events data:", process.env.MONGODB_VERCEL_TOKEN);
 
   return (
     <div>
-      {/* 1. Carousel Section */}
       <Navbar />
       <Carousels size={size} />
 
       {/* 2. About Us Section */}
-      <Container fluid className="py-5 px-4" id='features'>
+      <Container fluid className="py-5 px-4" id='about'>
         <Row className="align-items-center gx-5 gy-4">
           {/* Left Column - Image */}
           <Col md={6} className="text-center">
@@ -74,7 +46,6 @@ export default function Home() {
             />
           </Col>
 
-          {/* Right Column - Text + List */}
           <Col md={6}>
             <h2 className="mb-4 fw-bold text-dark text-center text-md-start">
               About Us
@@ -150,7 +121,6 @@ export default function Home() {
                       <Card.Body>
                         <div
                           style={{
-                            // backgroundColor: "#4caf50",
                             width: "80px",
                             height: "80px",
                             margin: "0 auto 20px auto",
@@ -274,4 +244,6 @@ export default function Home() {
     </div >
   );
 };
+
+
 

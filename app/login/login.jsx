@@ -1,9 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { supabase } from "../../supabaseClient";
+// import { supabase } from "../../supabaseClient";
 import { useRouter } from "next/navigation";
 import { Button, Card, Form } from "react-bootstrap";
-import bcrypt from "bcryptjs";
 import { ToastContainer, toast } from "react-toastify";
 
 const Login = ({ onSwitchToRegister, onRegisterSuccess }) => {
@@ -19,50 +18,63 @@ const Login = ({ onSwitchToRegister, onRegisterSuccess }) => {
     setIsSigningIn(true);
     setErrorMessage("");
 
-    const { data: user, error } = await supabase
-      .from("users")
-      .select("*")
-      .eq("email", email)
-      .single();
+    try {
+      // Ensure all fields are provided
+      if (!email || !password) {
+        setErrorMessage("Email and password are required.");
+        setIsSigningIn(false);
+        return;
+      }
 
-    if (error || !user) {
-      setErrorMessage("User not found.");
-      setIsSigningIn(false);
-      return;
-    }
-
-    const isValidPassword = await bcrypt.compare(password, user.password);
-
-    if (!isValidPassword) {
-      setErrorMessage("Incorrect password.");
-      setIsSigningIn(false);
-      toast.error("Incorrect password!", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+      console.log("Sending login request:", {
+        action: "login",
+        email,
+        password,
       });
-      return;
-    }
 
-    // Optional: store session info if needed
-    toast.success("Login successfully!", {
-      position: "bottom-left",
-      autoClose: 3000,
-    });
+      // Send POST request to the proxy with action: 'login'
+      const response = await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          action: "login",
+          email,
+          password,
+        }),
+      });
 
-    setTimeout(() => {
+      const data = await response.json();
+      console.log("Response from proxy:", data);
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      // Store user data in localStorage
       localStorage.setItem(
         "user",
-        JSON.stringify({ id: user.id, email: user.email, role: user.role })
+        JSON.stringify({
+          id: data._id,
+          username: data.username,
+          name: data.name,
+          email: data.email,
+          role: data.role,
+        })
       );
 
-      if (onRegisterSuccess) onRegisterSuccess();
-      router.push("/dashboard");
-    }, 1000); // 1 second delay before redirect
+      toast.success("Login successful!", {
+        position: "bottom-left",
+        autoClose: 3000,
+      });
+
+      router.push("/dashboard"); // Redirect to the dashboard
+    } catch (error) {
+      console.error("Login failed:", error.message);
+      setErrorMessage(error.message || "An error occurred during login.");
+      setIsSigningIn(false);
+    }
   };
 
   return (

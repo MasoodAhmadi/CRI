@@ -6,8 +6,8 @@ import { Navbar, Nav, Modal, Button } from "react-bootstrap";
 import { useRouter } from "next/navigation";
 import CrickLogo from "../assets/AfghanTampereSports.png";
 import AuthModal from "./authmodal";
-import "./navbar.css";
 import SearchButton from "./search";
+import "./navbar.css";
 
 function Navbars() {
   const [showLogin, setShowLogin] = useState(false);
@@ -47,8 +47,8 @@ function Navbars() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="">
-            <Nav.Link href="#features">ABOUT US</Nav.Link>
-            <Nav.Link href="#events">EVENTS</Nav.Link>
+            <Nav.Link href="/#about">ABOUT US</Nav.Link>
+            <Nav.Link href="/#events">EVENTS</Nav.Link>
             <Nav.Link href="/membership">MEMBERSHIP</Nav.Link>
           </Nav>
           <Nav className="ms-auto me-3 gap-3">
