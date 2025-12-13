@@ -25,10 +25,10 @@ export default function Home() {
   return (
     <div className='background-color'>
       <Navbar />
-      <Carousels size={size} />
 
       {/* 2. About Us Section */}
-      <Container fluid className="py-5 px-4" id='about'>
+      <Container className="py-5 px-4" id='about'>
+        <Carousels size={size} />
         <Row className="align-items-center gx-5 gy-4">
           {/* Left Column - Image */}
           <Col md={6} className="text-center">

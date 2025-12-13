@@ -87,9 +87,8 @@ export const BrandTitle = styled.h1`
 /* MAIN NAVBAR */
 export const MainNavbar = styled.nav`
 
-  display: flex;
-  align-items: center;
-
+  // display: flex;
+  // align-items: center;
   margin-top: 0;
   padding-top: 0;
   background-color: ${({ theme }) => theme.colors.primary};
