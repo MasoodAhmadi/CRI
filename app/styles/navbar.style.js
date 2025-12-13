@@ -35,14 +35,22 @@ export const BrandSection = styled.div`
 
 /* LOGO CARD */
 export const LogoCard = styled(Card)`
-  width: ${({ isMobile }) => isMobile && isMobile ? "6rem" : "18rem"};
-  height: ${({ isMobile }) => isMobile && isMobile ? "6rem" : "18rem"};
+  width: 15rem;
+  height: 15rem;
   border: none;
   background: transparent;
   overflow: hidden;
-  margin-bottom: ${({ isMobile }) => (isMobile ? "-10px" : "-30px")};
+  margin-bottom: -25px;
 
+  @media (max-width: 550px) {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: -16px;
+  }
 `;
+
+
+
 
 export const LogoImage = styled(Card.Img)`
   width: 100%;
