@@ -33,6 +33,7 @@ export default function Navbar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
   useEffect(() => {
     const user = localStorage.getItem("user");
     setUserLoggedIn(!!user);
@@ -48,7 +49,7 @@ export default function Navbar() {
   return (
     <>
       {/* TOP BRAND BAR */}
-      <Container className="p-0">
+      <Container className="p-0 bg-light">
         <BrandBar>
           <BrandRow>
             <BrandSection align="flex-start">
@@ -71,18 +72,20 @@ export default function Navbar() {
       </Container>
       {/* MAIN NAVBAR */}
       <MainNavbar>
-        <NavLinks>
-          <NavLink href="/">Home</NavLink>
-          <NavLink href="/#about">About</NavLink>
-          <NavLink href="/#events">Events</NavLink>
-          <NavLink href="/membership">Membership</NavLink>
-        </NavLinks>
+        <Container className="d-flex justify-content-between align-items-center py-2">
+          <NavLinks>
+            <NavLink href="/">Home</NavLink>
+            <NavLink href="/#about">About</NavLink>
+            <NavLink href="/#events">Events</NavLink>
+            <NavLink href="/membership">Membership</NavLink>
+          </NavLinks>
 
-        {userLoggedIn ? (
-          <NavLink onClick={handleLogout}>Logout</NavLink>
-        ) : (
-          <LoginButton>Login</LoginButton>
-        )}
+          {userLoggedIn ? (
+            <NavLink onClick={handleLogout}>Logout</NavLink>
+          ) : (
+            <LoginButton>Login</LoginButton>
+          )}
+        </Container>
       </MainNavbar>
       <Modal
         show={showLogin}
