@@ -23,7 +23,7 @@ export default function Home() {
 
 
   return (
-    <div>
+    <div className='background-color'>
       <Navbar />
       <Carousels size={size} />
 
