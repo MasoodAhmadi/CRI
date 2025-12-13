@@ -11,6 +11,7 @@
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/supabase-js": "^2.50.0",
     "autoprefixer": "^10.4.21",
+    "babel-plugin-styled-components": "^2.1.4",
     "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.6",
     "dotenv": "^17.2.3",
@@ -24,11 +25,13 @@
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.2",
     "react-toastify": "^11.0.5",
+    "styled-components": "^6.1.19",
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
     "@types/node": "24.0.0",
     "@types/react": "19.1.7",
+    "@types/styled-components": "^5.1.36",
     "typescript": "5.8.3"
   }
 }

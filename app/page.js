@@ -15,14 +15,12 @@ import { ArrowRight } from "react-bootstrap-icons";
 import { Card, Button, Nav } from "react-bootstrap";
 import { Container, Row, Col, ListGroup } from 'react-bootstrap';
 import { dummyEvents } from '../data/dummyData';
-import './globals.css';
 
 export default function Home() {
 
   const size = useWindowSize();
   const [events, setEvents] = useState(dummyEvents);
 
-  // console.log("Events data:", process.env.MONGODB_VERCEL_TOKEN);
 
   return (
     <div>

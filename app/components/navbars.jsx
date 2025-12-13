@@ -1,15 +1,19 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { Navbar, Nav, Modal, Button } from "react-bootstrap";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import CrickLogo from "../assets/AfghanTampereSports.png";
+import { BrandBar, BrandRow, BrandSection } from "../styles/navbar.style";
+import { LogoImage, BrandTitle, MainNavbar } from "../styles/navbar.style";
+import { LogoCard, NavLinks, NavLink } from "../styles/navbar.style";
+import { LoginButton } from "../styles/navbar.style";
+import useWindowSize from "../utils/useWindowsSize";
+import { Modal } from "react-bootstrap";
 import AuthModal from "./authmodal";
-import SearchButton from "./search";
-import "./navbar.css";
 
-function Navbars() {
+export default function Navbar() {
+  const size = useWindowSize();
+  const isMobile = size.width <= 550;
   const [showLogin, setShowLogin] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const router = useRouter();
@@ -21,75 +25,49 @@ function Navbars() {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    setUserLoggedIn(false);
     router.push("/");
   };
 
   return (
     <>
-      <Navbar
-        collapseOnSelect
-        expand="lg"
-        className="navbar-custom px-3 navbar-large-text shadow-sm"
-      >
-        <Navbar.Brand href="/" className="ms-2">
-          <Image
-            src={CrickLogo}
-            sizes="100px"
-            width={100}
-            height={100}
-            className="d-inline-block align-top me-2"
-            alt="Crick Logo"
-          />
-        </Navbar.Brand>
+      {/* TOP BRAND BAR */}
+      <BrandBar>
+        <BrandRow>
+          <BrandSection align="flex-start">
+            <LogoCard isMobile={isMobile}>
+              <LogoImage src="/crick.png" alt="Cricket" />
+            </LogoCard>
+          </BrandSection>
 
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          {/* Left side links */}
-          <Nav className="me-auto">
-            <Nav.Link href="/#about" className="nav-link-custom">
-              ABOUT US
-            </Nav.Link>
-            <Nav.Link href="/#events" className="nav-link-custom">
-              EVENTS
-            </Nav.Link>
-            <Nav.Link href="/membership" className="nav-link-custom">
-              MEMBERSHIP
-            </Nav.Link>
-          </Nav>
+          <BrandSection align="center">
+            <BrandTitle>AFGHANS TAMPERE SPORTS</BrandTitle>
+          </BrandSection>
 
-          {/* Right side links/buttons */}
-          <Nav className="ms-auto gap-3">
-            <SearchButton />
-            {userLoggedIn ? (
-              <>
-                <Nav.Link href="/dashboard" className="nav-link-custom">
-                  DASHBOARD
-                </Nav.Link>
-                <Button
-                  variant="outline-danger"
-                  size="sm"
-                  onClick={handleLogout}
-                  className="rounded-pill px-3 py-1 text-nowrap shadow-sm"
-                >
-                  Logout
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button
-                  size="sm"
-                  onClick={() => setShowLogin(true)}
-                  className="px-3 py-1 text-nowrap custom-login-btn"
-                >
-                  Login
-                </Button>
-              </>
-            )}
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+          <BrandSection align="flex-end">
+            <img
+              src="/AfghanTampereSports.png"
+              alt="Logo"
+              width={isMobile ? 100 : 200}
+              height={isMobile ? 80 : 200}
+            />
+          </BrandSection>
+        </BrandRow>
+      </BrandBar>
+      {/* MAIN NAVBAR */}
+      <MainNavbar>
+        <NavLinks>
+          <NavLink href="/">Home</NavLink>
+          <NavLink href="/#about">About</NavLink>
+          <NavLink href="/#events">Events</NavLink>
+          <NavLink href="/membership">Membership</NavLink>
+        </NavLinks>
 
+        {userLoggedIn ? (
+          <NavLink onClick={handleLogout}>Logout</NavLink>
+        ) : (
+          <LoginButton>Login</LoginButton>
+        )}
+      </MainNavbar>
       <Modal
         show={showLogin}
         onHide={() => setShowLogin(false)}
@@ -97,9 +75,7 @@ function Navbars() {
         centered
       >
         <AuthModal onClose={() => setShowLogin(false)} />
-      </Modal>
+      </Modal>{" "}
     </>
   );
 }
-
-export default Navbars;
