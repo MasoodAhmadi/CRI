@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { hoverGlow } from "./mixins";
-import { Card } from "react-bootstrap"
+import { Card, Nav, Navbar } from "react-bootstrap"
 /* TOP BRAND BAR */
 export const BrandBar = styled.div`
   width: 100%;
@@ -85,34 +85,64 @@ export const BrandTitle = styled.h1`
 
 
 /* MAIN NAVBAR */
-export const MainNavbar = styled.nav`
 
-  // display: flex;
-  // align-items: center;
-  margin-top: 0;
-  padding-top: 0;
+export const MainNavbar = styled(Navbar)`
   background-color: ${({ theme }) => theme.colors.primary};
+  padding: 0.75rem 1rem;
 `;
 
-
-/* NAV LINKS */
-export const NavLinks = styled.div`
+/* NAV CONTAINER */
+export const NavLinks = styled(Nav)`
   display: flex;
   gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+
+  @media (max-width: 550px) {
+    gap: 1rem;
+    padding-top: 1rem;
+  }
 `;
 
-export const NavLink = styled.a`
-  color: ${({ theme }) => theme.colors.light};
+
+/* NAV LINK */
+export const NavLink = styled(Nav.Link)`
+  color: ${({ theme }) => theme.colors.light} !important;
   font-size: 1.4rem;
   font-weight: ${({ theme }) => theme.typography.weightMedium};
   ${hoverGlow("#FFCC00")};
 `;
 
+/* RIGHT SIDE (LOGIN / LOGOUT) */
+export const NavRight = styled(Nav)`
+  margin-left: auto; 
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  @media (max-width: 550px) {
+    padding-top: 1rem;
+  }
+`;
+
+
 /* LOGIN BUTTON */
 export const LoginButton = styled.button`
+  background: transparent;
+  border: none;
   color: ${({ theme }) => theme.colors.light};
   font-size: 1rem;
   padding: 0.5rem 1rem;
   border-radius: ${({ theme }) => theme.radius.md};
   ${hoverGlow("#FFCC00")};
 `;
+export const LogoutButton = styled.button`
+  background: transparent;
+  border: none;
+  color: ${({ theme }) => theme.colors.light};
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: ${({ theme }) => theme.radius.md};
+  ${hoverGlow("#FFCC00")};
+`;
+

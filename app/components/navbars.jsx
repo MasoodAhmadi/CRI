@@ -3,13 +3,21 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { BrandBar, BrandRow, BrandSection } from "../styles/navbar.style";
+import {
+  BrandBar,
+  BrandRow,
+  BrandSection,
+  LogIn,
+  LogoutButton,
+  NavRight,
+} from "../styles/navbar.style";
 import { LogoImage, BrandTitle, MainNavbar } from "../styles/navbar.style";
 import { LogoCard, NavLinks, NavLink } from "../styles/navbar.style";
 import { LoginButton } from "../styles/navbar.style";
 import useWindowSize from "../utils/useWindowsSize";
 import { Container, Modal } from "react-bootstrap";
 import AuthModal from "./authmodal";
+import RBNavbar from "react-bootstrap/Navbar";
 
 export default function Navbar() {
   // const size = useWindowSize();
@@ -71,20 +79,28 @@ export default function Navbar() {
         </BrandBar>
       </Container>
       {/* MAIN NAVBAR */}
-      <MainNavbar>
+      <MainNavbar expand="sm" variant="dark" collapseOnSelect>
+        <RBNavbar.Toggle aria-controls="main-navbar-nav" />
         <Container className="d-flex justify-content-between align-items-center py-2">
-          <NavLinks>
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/#about">About</NavLink>
-            <NavLink href="/#events">Events</NavLink>
-            <NavLink href="/membership">Membership</NavLink>
-          </NavLinks>
+          <RBNavbar.Collapse
+            id="main-navbar-nav"
+            className="justify-content-start"
+          >
+            <NavLinks>
+              <NavLink href="/">Home</NavLink>
+              <NavLink href="/#about">About</NavLink>
+              <NavLink href="/#events">Events</NavLink>
+              <NavLink href="/membership">Membership</NavLink>
 
-          {userLoggedIn ? (
-            <NavLink onClick={handleLogout}>Logout</NavLink>
-          ) : (
-            <LoginButton>Login</LoginButton>
-          )}
+              <NavRight>
+                {userLoggedIn ? (
+                  <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+                ) : (
+                  <LoginButton>Login</LoginButton>
+                )}
+              </NavRight>
+            </NavLinks>
+          </RBNavbar.Collapse>
         </Container>
       </MainNavbar>
       <Modal
