@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
-import { image3 } from './utils/links';
 import Hewad from './assets/hewad.png';
 import logo from './assets/logo.png';
 import Footer from './components/footer';
@@ -15,6 +14,8 @@ import { ArrowRight } from "react-bootstrap-icons";
 import { Card, Button, Nav } from "react-bootstrap";
 import { Container, Row, Col, ListGroup } from 'react-bootstrap';
 import { dummyEvents } from '../data/dummyData';
+import { image3 } from './utils/links';
+import { bamyanImg } from './utils/links';
 
 export default function Home() {
 
@@ -25,6 +26,61 @@ export default function Home() {
   return (
     <div className='background-color'>
       <Navbar />
+      {/* 1. Hero Section */}
+      {/* HERO SECTION */}
+      <section
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "50vh",
+          maxHeight: "700px",
+          backgroundImage: `url(${bamyanImg})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {/* Overlay */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.45)", // 👈 controls image opacity
+            zIndex: 1,
+          }}
+        >
+          {/* Content */}
+          <div
+            style={{
+              // position: "relative",
+              // zIndex: 2,
+              // backgroundColor: "rgba(0, 0, 0, 0.7)", // 👈 text background only
+              // padding: "1.5rem 2rem",
+              // borderRadius: "12px",
+              // maxWidth: "800px",
+              // textAlign: "center",
+            }}
+          >
+            {/* <p
+              style={{
+                margin: 0,
+                color: "#fff",
+                fontSize: "1.1rem",
+                lineHeight: 1.6,
+              }}>
+              Welcome to the Afghanistan Cricket Association in Tampere, Finland! We
+              are dedicated to promoting and developing the sport of cricket within
+              the Afghan community and beyond. Our association serves as a hub for
+              cricket enthusiasts, providing opportunities for players of all ages
+              and skill levels to engage in the sport, participate in tournaments,
+              and foster a sense of camaraderie.
+            </p> */}
+          </div>
+        </div>
+      </section>
 
       {/* 2. About Us Section */}
       <Container className="py-5 px-4" id='about'>
