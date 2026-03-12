@@ -3,14 +3,8 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import {
-  BrandBar,
-  BrandRow,
-  BrandSection,
-  LogIn,
-  LogoutButton,
-  NavRight,
-} from "../styles/navbar.style";
+import { BrandBar, BrandRow, BrandSection } from "../styles/navbar.style";
+import { LogIn, LogoutButton, NavRight } from "../styles/navbar.style";
 import { LogoImage, BrandTitle, MainNavbar } from "../styles/navbar.style";
 import { LogoCard, NavLinks, NavLink } from "../styles/navbar.style";
 import { LoginButton } from "../styles/navbar.style";
@@ -57,27 +51,20 @@ export default function Navbar() {
   return (
     <>
       {/* TOP BRAND BAR */}
-      <Container className="p-0 bg-light">
-        <BrandBar>
-          <BrandRow>
-            <BrandSection align="flex-start">
-              <LogoCard isMobile={isMobile}>
-                <LogoImage src="/crick.png" alt="Cricket" />
-              </LogoCard>
-            </BrandSection>
-
-            <BrandSection align="center">
-              <BrandTitle>AFGHANS TAMPERE SPORTS</BrandTitle>
-            </BrandSection>
-
-            <BrandSection align="flex-end">
-              <LogoCard isMobile={isMobile}>
-                <LogoImage src="/AfghanTampereSports.png" alt="Logo" />
-              </LogoCard>
-            </BrandSection>
-          </BrandRow>
-        </BrandBar>
-      </Container>
+      {/* <Container className="p-0 bg-light"> */}
+      <BrandBar>
+        <BrandRow>
+          <BrandSection $align="flex-center">
+            {/* <LogoCard isMobile={isMobile}>
+              <LogoImage src="/AfghanTampereSports.png" alt="Logo" />
+            </LogoCard> */}
+          </BrandSection>
+          <BrandSection $align="center">
+            <BrandTitle>AFGHANS TAMPERE SPORTS</BrandTitle>
+          </BrandSection>
+        </BrandRow>
+      </BrandBar>
+      {/* </Container> */}
       {/* MAIN NAVBAR */}
       <MainNavbar expand="sm" variant="dark" collapseOnSelect>
         <RBNavbar.Toggle aria-controls="main-navbar-nav" />
@@ -86,6 +73,7 @@ export default function Navbar() {
             id="main-navbar-nav"
             className="justify-content-start"
           >
+            <img src="/AfghanTampereSports.png" width="100px" height="100px" />
             <NavLinks>
               <NavLink href="/">Home</NavLink>
               <NavLink href="/#about">About</NavLink>

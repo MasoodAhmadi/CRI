@@ -4,23 +4,23 @@ import { Card, Nav, Navbar } from "react-bootstrap"
 /* TOP BRAND BAR */
 export const BrandBar = styled.div`
   width: 100%;
-  background: ${({ theme }) => theme.colors.light};
+  background: ${({ theme }) => theme.colors.primary};
 
+  /* force same height as main navbar */
+  padding: 0.75rem 1rem;
+  height: 3.5rem;          /* fixed height roughly equals navbar (padding + link font-size) */
   display: flex;
   align-items: center;
 
-  /* Lock vertical growth */
-  min-height: 110px;
-
+  /* ensure we don’t collapse on mobile */
   @media (max-width: 550px) {
-    min-height: 80px;
+    padding: 0.75rem 1rem;
+    height: 3.5rem;
   }
 `;
 
 
 export const BrandRow = styled.div`
-  display: flex;
-  align-items: center;
   width: 100%;
 `;
 
@@ -29,28 +29,27 @@ export const BrandSection = styled.div`
   flex: 1;
   display: flex;
   align-items: center; /* instead of margin-top */
-  justify-content: ${({ align }) => align};
+  justify-content: ${props => props.$align};
+
 `;
 
 
 /* LOGO CARD */
 export const LogoCard = styled(Card)`
-  width: 15rem;
-  height: 15rem;
+  /* shrink the logo so the brand bar stays navbar height */
+  width: 3rem;
+  height: 3rem;
   border: none;
   background: transparent;
   overflow: hidden;
-  margin-bottom: -25px;
+  margin-bottom: 0;
 
   @media (max-width: 550px) {
-    width: 5rem;
-    height: 5rem;
-    margin-bottom: -16px;
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0;
   }
 `;
-
-
-
 
 export const LogoImage = styled(Card.Img)`
   width: 100%;
@@ -64,14 +63,14 @@ export const BrandTitle = styled.h1`
   padding: 0;
 
   font-weight: ${({ theme }) => theme.typography.weightBold};
-  color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.light};
 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
 
-  font-size: 3rem;
+  font-size: 1.5rem;
   line-height: 1.1;
 
   @media (max-width: 1024px) {
@@ -108,8 +107,21 @@ export const NavLinks = styled(Nav)`
 /* NAV LINK */
 export const NavLink = styled(Nav.Link)`
   color: ${({ theme }) => theme.colors.light} !important;
-  font-size: 1.4rem;
+  font-size: 1rem;
   font-weight: ${({ theme }) => theme.typography.weightMedium};
+
+  /* button-like appearance */
+  padding: 0.5rem 1rem;
+  border: 1px solid ${({ theme }) => theme.colors.light};
+  border-radius: ${({ theme }) => theme.radius.sm};
+  text-align: center;
+  transition: background 0.2s, color 0.2s;
+
+  &:hover, &:focus {
+    background: ${({ theme }) => theme.colors.light};
+    color: ${({ theme }) => theme.colors.primary} !important;
+  }
+
   ${hoverGlow("#FFCC00")};
 `;
 
