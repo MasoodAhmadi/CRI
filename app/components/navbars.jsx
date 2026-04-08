@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { BrandBar, BrandRow, BrandSection } from "../styles/navbar.style";
@@ -8,7 +7,7 @@ import { LogIn, LogoutButton, NavRight } from "../styles/navbar.style";
 import { LogoImage, BrandTitle, MainNavbar } from "../styles/navbar.style";
 import { LogoCard, NavLinks, NavLink } from "../styles/navbar.style";
 import { LoginButton } from "../styles/navbar.style";
-import useWindowSize from "../utils/useWindowsSize";
+// import useWindowSize from "../utils/useWindowsSize";
 import { Container, Modal } from "react-bootstrap";
 import AuthModal from "./authmodal";
 import RBNavbar from "react-bootstrap/Navbar";
@@ -52,18 +51,14 @@ export default function Navbar() {
     <>
       {/* TOP BRAND BAR */}
       {/* <Container className="p-0 bg-light"> */}
-      <BrandBar>
+      {/* <BrandBar>
         <BrandRow>
-          <BrandSection $align="flex-center">
-            {/* <LogoCard isMobile={isMobile}>
-              <LogoImage src="/AfghanTampereSports.png" alt="Logo" />
-            </LogoCard> */}
-          </BrandSection>
+          <BrandSection $align="flex-center"></BrandSection>
           <BrandSection $align="center">
             <BrandTitle>AFGHANS TAMPERE SPORTS</BrandTitle>
           </BrandSection>
         </BrandRow>
-      </BrandBar>
+      </BrandBar> */}
       {/* </Container> */}
       {/* MAIN NAVBAR */}
       <MainNavbar expand="sm" variant="dark" collapseOnSelect>
@@ -82,9 +77,14 @@ export default function Navbar() {
 
               <NavRight>
                 {userLoggedIn ? (
-                  <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+                  <>
+                    <NavLink href="/dashboard">Dashboard</NavLink>
+                    <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+                  </>
                 ) : (
-                  <LoginButton>Login</LoginButton>
+                  <LoginButton onClick={() => setShowLogin(true)}>
+                    Login
+                  </LoginButton>
                 )}
               </NavRight>
             </NavLinks>

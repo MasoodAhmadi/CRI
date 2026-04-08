@@ -33,17 +33,20 @@ const Login = ({ onSwitchToRegister }) => {
       });
 
       // Send POST request to the proxy with action: 'login'
-      const response = await fetch("/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      const response = await fetch(
+        "https://backend-express-mlv3vqxxm-masoodahmadis-projects.vercel.app/api/users/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            action: "login",
+            email,
+            password,
+          }),
         },
-        body: JSON.stringify({
-          action: "login",
-          email,
-          password,
-        }),
-      });
+      );
 
       const data = await response.json();
       console.log("Response from proxy:", data);
@@ -61,7 +64,7 @@ const Login = ({ onSwitchToRegister }) => {
           name: data.name,
           email: data.email,
           role: data.role,
-        })
+        }),
       );
 
       toast.success("Login successful!", {
