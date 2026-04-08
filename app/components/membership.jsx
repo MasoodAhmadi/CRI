@@ -1,59 +1,48 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Accordations from "./accordation";
 import { ToastContainer, toast } from "react-toastify";
 import { PersonBadgeFill } from "react-bootstrap-icons";
-import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import {
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+  Alert,
+  Modal,
+} from "react-bootstrap";
 
 export default function Membership() {
-  const supabase = createClientComponentClient();
-
-  const [memberships, setMemberships] = useState([]);
-
   const [form, setForm] = useState({
     name: "",
-    lastName: "",
     email: "",
-    phone: "",
-    address: "",
-    city: "",
-    membership: "",
-    approved: false,
   });
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
 
-  const fetchUsers = async () => {
-    const { data, error } = await supabase.from("members").select("*");
-    if (!error) setMemberships(data);
-    else console.error("Error fetching memberships:", error.message);
-  };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
-
+  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Validate form
   const validateForm = () => {
     const newErrors = {};
-    if (!form.name) newErrors.name = "First name is required";
-    if (!form.lastName) newErrors.lastName = "Last name is required";
+    if (!form.name) newErrors.name = "Name is required";
     if (!form.email) newErrors.email = "Email is required";
-    if (!form.phone) newErrors.phone = "Phone is required";
-    if (!form.address) newErrors.address = "Address is required";
-    if (!form.city) newErrors.city = "City is required";
-    if (!form.membership) newErrors.membership = "Select a membership type";
+    if (!acceptedTerms) newErrors.terms = "You must agree to the terms";
+
     return newErrors;
   };
 
+  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -68,66 +57,50 @@ export default function Membership() {
       return;
     }
 
-    const { data: existing, error: fetchError } = await supabase
-      .from("members")
-      .select("*")
-      .or(`email.eq.${form.email},phone.eq.${form.phone}`);
-
-    if (fetchError) {
-      setMessage(
-        "Error checking existing registrations: " + fetchError.message
+    try {
+      const response = await fetch(
+        "https://backend-express-mlv3vqxxm-masoodahmadis-projects.vercel.app/api/users",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            password: "default123", // required by backend
+            role: "player",
+          }),
+        },
       );
-      setLoading(false);
-      return;
-    }
 
-    if (existing && existing.length > 0) {
-      const emailExists = existing.some((entry) => entry.email === form.email);
-      const phoneExists = existing.some((entry) => entry.phone === form.phone);
-      setErrors({
-        ...validationErrors,
-        ...(emailExists && { email: "Email is already registered" }),
-        ...(phoneExists && { phone: "Phone is already registered" }),
-      });
-      setLoading(false);
-      return;
-    }
+      const data = await response.json();
 
-    // Insert new member
-    const { error } = await supabase.from("members").insert({
-      ...form,
-    });
+      if (!response.ok) {
+        setMessage(data.message || "Error creating user");
+        setSubmitted(false);
+      } else {
+        setMessage("User added successfully!");
+        setSubmitted(true);
 
-    if (error) {
-      setMessage("Error: " + error.message);
-      setSubmitted(false);
-    } else {
-      setMessage("User added successfully!");
-      setForm({
-        name: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        address: "",
-        city: "",
-        membership: "",
-        approved: false,
-      });
-      setSubmitted(true);
-      await fetchUsers();
-      toast.success("Form submitted successfully!", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+        setForm({
+          name: "",
+          email: "",
+        });
+
+        toast.success("Form submitted successfully!", {
+          position: "bottom-left",
+          autoClose: 3000,
+        });
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      setMessage("Something went wrong.");
     }
 
     setLoading(false);
   };
+
   return (
     <div className="container py-5">
       <Container className="my-3">
@@ -135,168 +108,131 @@ export default function Membership() {
           className="text-white py-4 mb-4"
           style={{ borderRadius: "8px", background: "#232323" }}
         >
-          <Col
-            md={12}
-            className="text-center d-flex flex-row align-items-center justify-content-center gap-2"
-          >
-            <h1 className="display-3">Membership</h1>{" "}
+          <Col className="text-center d-flex align-items-center justify-content-center gap-2">
+            <h1 className="display-3">Membership</h1>
             <PersonBadgeFill size={55} />
           </Col>
         </Row>
+
         <Row className="justify-content-center">
-          <Col md={4} className="mb-0">
-            <div className="card p-3 text-center">
-              <strong className="m-2 p-2">Rules or Guidelines</strong>
-              <Accordations />
-            </div>
-          </Col>
-          <Col md={7} className="mb-0">
+          {/* Right side */}
+          <Col md={7}>
             <div className="card p-3">
               <Container className="mt-4">
-                {/* <h3>Membership Form</h3> */}
-                {submitted && (
-                  <Alert variant="success">Form submitted successfully!</Alert>
-                )}
+                {submitted && <Alert variant="success">{message}</Alert>}
+
                 <ToastContainer />
 
                 <Form noValidate onSubmit={handleSubmit}>
                   <Row>
                     <Col md={6}>
-                      <Form.Group className="mb-3" controlId="formName">
-                        <Form.Label>First Name</Form.Label>
+                      <Form.Group className="mb-3">
+                        <Form.Label>Full Name</Form.Label>
                         <Form.Control
                           type="text"
-                          style={{ backgroundColor: "#e8edea" }}
-                          className="bg-grey-100"
-                          placeholder=""
                           name="name"
                           value={form.name}
                           onChange={handleChange}
                           isInvalid={!!errors.name}
+                          style={{ backgroundColor: "#e8edea" }}
                         />
                         <Form.Control.Feedback type="invalid">
                           {errors.name}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
+
                     <Col md={6}>
-                      <Form.Group className="mb-3" controlId="formLastName">
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control
-                          type="text"
-                          style={{ backgroundColor: "#e8edea" }}
-                          placeholder=""
-                          name="lastName"
-                          value={form.lastName}
-                          onChange={handleChange}
-                          isInvalid={!!errors.lastName}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.lastName}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </Col>
-                    <Col md={6}>
-                      <Form.Group className="mb-3" controlId="formEmail">
+                      <Form.Group className="mb-3">
                         <Form.Label>Email</Form.Label>
                         <Form.Control
                           type="email"
-                          placeholder=""
-                          style={{ backgroundColor: "#e8edea" }}
                           name="email"
                           value={form.email}
                           onChange={handleChange}
                           isInvalid={!!errors.email}
+                          style={{ backgroundColor: "#e8edea" }}
                         />
                         <Form.Control.Feedback type="invalid">
                           {errors.email}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </Col>
-                    <Col md={6}>
-                      <Form.Group className="mb-3" controlId="formPhone">
-                        <Form.Label>Phone</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder=""
-                          style={{ backgroundColor: "#e8edea" }}
-                          name="phone"
-                          value={form.phone}
-                          onChange={handleChange}
-                          isInvalid={!!errors.phone}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.phone}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </Col>
-                    <Col md={6}>
-                      <Form.Group className="mb-3" controlId="formAddress">
-                        <Form.Label>Address</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder=""
-                          style={{ backgroundColor: "#e8edea" }}
-                          name="address"
-                          value={form.address}
-                          onChange={handleChange}
-                          isInvalid={!!errors.address}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.address}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </Col>
-                    <Col md={6}>
-                      <Form.Group className="mb-3" controlId="formCity">
-                        <Form.Label>City</Form.Label>
-                        <Form.Control
-                          type="text"
-                          placeholder=""
-                          style={{ backgroundColor: "#e8edea" }}
-                          name="city"
-                          value={form.city}
-                          onChange={handleChange}
-                          isInvalid={!!errors.city}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.city}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </Col>
                   </Row>
 
-                  <Row>
-                    <Col md={12}>
-                      <Form.Group className="mb-3" controlId="formMembership">
-                        <Form.Label>Membership Type</Form.Label>
-                        <Form.Select
-                          name="membership"
-                          value={form.membership}
-                          onChange={handleChange}
-                          isInvalid={!!errors.membership}
-                        >
-                          <option value="">Choose...</option>
-                          <option value="basic">Practices</option>
-                          <option value="premium">Matches</option>
-                          <option value="vip">Full Membership</option>
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">
-                          {errors.membership}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </Col>
-                  </Row>
+                  <div className="mb-3">
+                    <Button
+                      variant="outline-primary"
+                      onClick={() => setShowTermsModal(true)}
+                    >
+                      Terms and Conditions
+                    </Button>
+                  </div>
 
-                  <Button variant="primary" type="submit">
-                    Submit
+                  {message && !submitted && (
+                    <Alert variant="danger">{message}</Alert>
+                  )}
+
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={loading || !acceptedTerms}
+                  >
+                    {loading ? "Submitting..." : "Submit"}
                   </Button>
                 </Form>
+
+                <Modal
+                  show={showTermsModal}
+                  onHide={() => setShowTermsModal(false)}
+                  centered
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Terms and Conditions</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <p>Please review the membership terms before submitting.</p>
+                    <p>
+                      By joining, you agree to follow the community rules,
+                      attend events responsibly, and respect other members.
+                    </p>
+                    <Form.Check
+                      type="checkbox"
+                      id="modalTermsAccept"
+                      checked={acceptedTerms}
+                      onChange={(e) => setAcceptedTerms(e.target.checked)}
+                      label="I accept the Terms and Conditions"
+                    />
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button
+                      variant="secondary"
+                      onClick={() => setShowTermsModal(false)}
+                    >
+                      Close
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => setShowTermsModal(false)}
+                      disabled={!acceptedTerms}
+                    >
+                      Accept Terms
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
               </Container>
             </div>
           </Col>
+          {/* Left side */}
+          <Col md={4}>
+            <div className="card p-3 text-center">
+              <strong className="m-2 p-2">
+                Important Information – Cricket Tampere (Afghan Community)
+              </strong>
+              <Accordations />
+            </div>
+          </Col>
         </Row>
-        {/* </Container> */}`
       </Container>
     </div>
   );

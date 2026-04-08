@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-// import { supabase } from "../../supabaseClient";
 import { useRouter } from "next/navigation";
 import { Button, Card, Form } from "react-bootstrap";
 import { ToastContainer, toast } from "react-toastify";

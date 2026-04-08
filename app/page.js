@@ -1,12 +1,9 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from "next/image";
-import Hewad from './assets/hewad.png';
-import logo from './assets/logo.png';
 import Footer from './components/footer';
 import Navbar from './components/navbars';
-import AboutUs from './assets/aboutus.jpg'
 import Carousels from './components/carousel';
 import ScrollToTop from './components/scroll';
 import useWindowSize from './utils/useWindowsSize';
@@ -15,7 +12,6 @@ import { Card, Button, Nav } from "react-bootstrap";
 import { Container, Row, Col, ListGroup } from 'react-bootstrap';
 import { dummyEvents } from '../data/dummyData';
 import { image3 } from './utils/links';
-// import { bamyanImg } from './utils/links';
 import Contents from './components/content';
 
 export default function Home() {
@@ -27,7 +23,6 @@ export default function Home() {
   return (
     <div className='background-color'>
       <Navbar />
-      {/* HERO SECTION */}
 
       {/* 2. About Us Section */}
       <Contents />
@@ -37,8 +32,8 @@ export default function Home() {
         <Row className="align-items-center gx-5 gy-4">
           {/* Left Column - Image */}
           <Col md={6} className="text-center">
-            <Image
-              src={AboutUs}
+            <img
+              src="/aboutus.jpg"
               alt="About us"
               className="img-fluid rounded-4 shadow-lg"
               style={{
@@ -133,7 +128,7 @@ export default function Home() {
                             justifyContent: "center",
                           }}
                         >
-                          <Image src={logo} alt="Event Icon" width={80} height={80} style={{ objectFit: "contain" }}
+                          <Image src="/logo.png" alt="Event Icon" width={80} height={80} style={{ objectFit: "contain" }}
 
                           />
                           {/* <span style={{ fontSize: "36px", color: "#4caf50" }}>
@@ -195,7 +190,7 @@ export default function Home() {
                 }}
               >
                 <Image
-                  src={Hewad}
+                  src="/hewad.png"
                   alt="Hewad Market"
                   width={190}
                   height={190}
@@ -225,7 +220,7 @@ export default function Home() {
                 }}
               >
                 <Image
-                  src={Hewad}
+                  src="/hewad.png"
                   alt="Hewad Market"
                   width={190}
                   height={190}
