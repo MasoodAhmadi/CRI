@@ -1,10 +1,6 @@
 "use client";
 import React from "react";
-import { Carousel, Container } from "react-bootstrap";
-import Events from "../assets/event.jpg";
-import AboutUs from "../assets/aboutus.jpg";
-import FunctionImage from "../assets/_DSC5074.JPG";
-import { image2, image3 } from "../utils/links";
+import { Carousel } from "react-bootstrap";
 import Image from "next/image";
 
 export default function Carousels({ size }) {
@@ -22,7 +18,7 @@ export default function Carousels({ size }) {
           }}
         >
           <Image
-            src={FunctionImage}
+            src="/football.jpg"
             alt="Second slide"
             fill
             style={{ objectFit: "cover" }}
@@ -59,7 +55,7 @@ export default function Carousels({ size }) {
           }}
         >
           <Image
-            src={AboutUs}
+            src="/aboutus.jpg"
             alt="Third slide"
             fill
             style={{ objectFit: "cover" }}
