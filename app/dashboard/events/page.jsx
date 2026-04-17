@@ -9,8 +9,7 @@ import {
   Badge,
   Spinner,
 } from "react-bootstrap";
-import Navbars from "../components/navbars";
-
+import Navbars from "../../components/navbars";
 const API_BASE_URL =
   process.env.BACKEND_URL || "https://backend-express-two-taupe.vercel.app";
 

@@ -1,12 +1,8 @@
 "use client";
 import React from "react";
-import _ from "lodash"; // make sure lodash is installed
-import {
-  ChevronDoubleLeft,
-  ChevronLeft,
-  ChevronRight,
-  ChevronDoubleRight,
-} from "react-bootstrap-icons";
+import _ from "lodash";
+import { ChevronDoubleLeft, ChevronLeft } from "react-bootstrap-icons";
+import { ChevronRight, ChevronDoubleRight } from "react-bootstrap-icons";
 
 export default function PaginationComponent({
   pageSize,

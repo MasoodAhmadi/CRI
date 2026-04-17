@@ -41,6 +41,8 @@ const Register = ({ onSwitchToLogin, onRegisterSuccess }) => {
           body: JSON.stringify({
             email,
             password: hashedPassword,
+            phone,
+            city,
             role: "player", // or "user"
             name: email.split("@")[0], // optional, just example
           }),

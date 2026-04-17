@@ -2,23 +2,23 @@
 import React, { useState } from "react";
 import { PenFill, XCircleFill } from "react-bootstrap-icons";
 import { Button, Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
-import "./userlist.css";
 
 const UserList = ({ user, onDelete, onToggleApprove, size }) => {
   const [showConfirm, setShowConfirm] = useState(false);
 
-  const handleDelete = () => {
-    setShowConfirm(true);
-  };
+  // Open delete confirmation modal
+  const handleDelete = () => setShowConfirm(true);
 
+  // Confirm delete
   const confirmDelete = () => {
-    onDelete(user.id);
-    setShowConfirm(false);
-  };
-  const cancelDelete = () => {
+    onDelete(user._id); // Use MongoDB _id
     setShowConfirm(false);
   };
 
+  // Cancel delete
+  const cancelDelete = () => setShowConfirm(false);
+
+  // Tooltip for approval
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       {user.approved
@@ -26,10 +26,10 @@ const UserList = ({ user, onDelete, onToggleApprove, size }) => {
         : "Payment is not confirmed, registration is pending approval."}
     </Tooltip>
   );
+
   return (
     <>
       <tr>
-        <td></td>
         <OverlayTrigger
           placement="bottom"
           delay={{ show: 250, hide: 400 }}
@@ -39,12 +39,13 @@ const UserList = ({ user, onDelete, onToggleApprove, size }) => {
         </OverlayTrigger>
         <td>{user.phone}</td>
         <td>{user.email}</td>
-        <td>
+        <td>{user.city}</td>
+        <td className="text-center">
           <Form.Check
             type="switch"
-            id={`approve-switch-${user.id}`}
+            id={`approve-switch-${user._id}`}
             checked={user.approved}
-            onChange={() => onToggleApprove(user.id, user.approved)}
+            onChange={() => onToggleApprove(user._id, user.approved)}
             className={
               user.approved
                 ? "approve-switch green-switch d-flex justify-content-center"
@@ -63,18 +64,14 @@ const UserList = ({ user, onDelete, onToggleApprove, size }) => {
           ) : (
             <PenFill
               className="shadow-lg rounded penfill-shadow"
-              variant=""
-              style={{ color: "#FFCC00", borderColor: "#fff" }}
+              style={{ color: "#FFCC00" }}
               size={25}
             />
           )}
-          {/*  */}
         </td>
         <td
           className="text-center"
-          style={{
-            fontSize: size.width < 786 ? "8px" : "inherit",
-          }}
+          style={{ fontSize: size.width < 786 ? "8px" : "inherit" }}
         >
           {size.width > 786 ? (
             <Button
@@ -87,7 +84,6 @@ const UserList = ({ user, onDelete, onToggleApprove, size }) => {
           ) : (
             <XCircleFill
               className="shadow-lg rounded xcirclefill-shadow"
-              variant=""
               style={{
                 color: user.deleted_at ? "#28a745" : "#dc3545",
                 borderColor: "#fff",
@@ -98,7 +94,9 @@ const UserList = ({ user, onDelete, onToggleApprove, size }) => {
           )}
         </td>
       </tr>
-      <Modal show={showConfirm} onHide={() => setShowConfirm(false)} centered>
+
+      {/* Delete Confirmation Modal */}
+      <Modal show={showConfirm} onHide={cancelDelete} centered>
         <Modal.Header closeButton>
           <Modal.Title>
             {user.deleted_at ? "Restore Player" : "Delete Player"}
@@ -109,7 +107,7 @@ const UserList = ({ user, onDelete, onToggleApprove, size }) => {
           user?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowConfirm(false)}>
+          <Button variant="secondary" onClick={cancelDelete}>
             Cancel
           </Button>
           <Button

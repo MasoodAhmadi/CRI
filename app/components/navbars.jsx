@@ -72,7 +72,7 @@ export default function Navbar() {
             <NavLinks>
               <NavLink href="/">Home</NavLink>
               <NavLink href="/#about">About</NavLink>
-              <NavLink href="/#events">Events</NavLink>
+              <NavLink href="/events">Events</NavLink>
               <NavLink href="/membership">Membership</NavLink>
 
               <NavRight>

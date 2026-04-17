@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
-import "./scroll.css"; // Assuming you have a CSS file for styles
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
 
