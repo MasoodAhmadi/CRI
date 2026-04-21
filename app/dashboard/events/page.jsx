@@ -140,63 +140,70 @@ export default function EventsPage() {
   return (
     <>
       <Navbars />
-      <BreadCrump />
       <Container className="py-4">
-        <div className="d-flex justify-content-between mb-3">
-          <h2>Event Management</h2>
+        <BreadCrump />
+        <Container className="py-4">
+          <div className="d-flex justify-content-between mb-3">
+            <h2>Event Management</h2>
 
-          <Button onClick={openCreate}>+ Create Event</Button>
-        </div>
+            <Button onClick={openCreate}>+ Create Event</Button>
+          </div>
 
-        {/* EVENTS LIST */}
-        <Row>
-          {events.map((event) => (
-            <Col md={4} key={event._id}>
-              <Card className="mb-3 shadow-sm">
-                <Card.Body>
-                  <Card.Title>{event.title}</Card.Title>
+          {/* EVENTS LIST */}
+          <Row>
+            {events.map((event) => (
+              <Col md={4} key={event._id}>
+                <Card className="mb-3 shadow-sm">
+                  <Card.Body>
+                    <Card.Title>{event.title}</Card.Title>
 
-                  <Card.Text>{event.description}</Card.Text>
+                    <Card.Text>{event.description}</Card.Text>
 
-                  <p>
-                    📍 {event.location?.name}, {event.location?.city}
-                  </p>
+                    <p>
+                      📍 {event.location?.name}, {event.location?.city}
+                    </p>
 
-                  <p>📅 {new Date(event.date).toDateString()}</p>
+                    <p>📅 {new Date(event.date).toDateString()}</p>
 
-                  <div className="d-flex gap-2">
-                    <Button
-                      size="sm"
-                      variant="warning"
-                      onClick={() => openEdit(event)}
-                    >
-                      Edit
-                    </Button>
+                    <div className="d-flex gap-2">
+                      <Button
+                        size="sm"
+                        variant="warning"
+                        onClick={() => openEdit(event)}
+                      >
+                        Edit
+                      </Button>
 
-                    <Button
-                      size="sm"
-                      variant="danger"
-                      onClick={() => deleteEvent(event._id)}
-                    >
-                      Delete
-                    </Button>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
+                      <Button
+                        size="sm"
+                        variant="danger"
+                        onClick={() => deleteEvent(event._id)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            ))}
+          </Row>
 
-        {/* MODAL (CREATE / EDIT) */}
-        <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
-          <EventManagement
-            editingId={editingId}
-            form={form}
-            setForm={setForm}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
-          />
-        </Modal>
+          {/* MODAL (CREATE / EDIT) */}
+          <Modal
+            show={showModal}
+            onHide={() => setShowModal(false)}
+            size="lg"
+            cenered
+          >
+            <EventManagement
+              editingId={editingId}
+              form={form}
+              setForm={setForm}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
+          </Modal>
+        </Container>
       </Container>
     </>
   );

@@ -137,3 +137,87 @@
     0 1.5px 4px rgba(0, 0, 0, 0.12);
   border-radius: 50%;
 }
+
+/* Modal container */
+.modal-content {
+  border-radius: 18px;
+  border: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: fadeInUp 0.3s ease;
+}
+
+/* Header */
+.event-modal-header {
+  background: linear-gradient(135deg, #009937, #009937);
+  border-bottom: none;
+  padding: 1.2rem 1.5rem;
+}
+
+.event-modal-title {
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Body */
+.event-modal-body {
+  padding: 1.5rem;
+  background: #f9fafb;
+}
+
+/* Inputs */
+.event-input {
+  border-radius: 12px !important;
+  border: 1px solid #e5e7eb;
+  padding: 10px 14px;
+  font-size: 14px;
+
+  /* Shadow */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  /* Smooth transition */
+  transition: all 0.25s ease;
+}
+
+/* Input focus */
+.event-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}
+
+/* Submit button */
+.event-submit-btn {
+  background: linear-gradient(135deg, #28a745, #28a745);
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 500;
+  font-size: 15px;
+
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+
+  transition: all 0.25s ease;
+}
+
+.event-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(99, 102, 241, 0.45);
+}
+
+/* Modal spacing */
+.modal-dialog {
+  margin-top: 5vh;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

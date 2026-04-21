@@ -12,31 +12,32 @@ export default function EventManagement({
 }) {
   return (
     <>
-      <Modal.Header closeButton>
-        <Modal.Title>{editingId ? "Edit Event" : "Create Event"}</Modal.Title>
+      <Modal.Header closeButton className="event-modal-header">
+        <Modal.Title className="event-modal-title">
+          {editingId ? "Edit Event" : "Create Event"}
+        </Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>
+      <Modal.Body className="event-modal-body">
         <Form onSubmit={handleSubmit}>
-          <Row>
+          <Row className="g-3">
             <Col md={6}>
               <Form.Control
                 placeholder="Title"
                 name="title"
                 value={form.title}
                 onChange={handleChange}
-                className="mb-2"
+                className="event-input"
               />
             </Col>
 
             <Col md={6}>
               <Form.Control
-                placeholder="Date"
                 type="date"
                 name="date"
                 value={form.date}
                 onChange={handleChange}
-                className="mb-2"
+                className="event-input"
               />
             </Col>
 
@@ -46,7 +47,7 @@ export default function EventManagement({
                 name="startTime"
                 value={form.startTime}
                 onChange={handleChange}
-                className="mb-2"
+                className="event-input"
               />
             </Col>
 
@@ -56,7 +57,7 @@ export default function EventManagement({
                 name="endTime"
                 value={form.endTime}
                 onChange={handleChange}
-                className="mb-2"
+                className="event-input"
               />
             </Col>
 
@@ -66,7 +67,7 @@ export default function EventManagement({
                 name="description"
                 value={form.description}
                 onChange={handleChange}
-                className="mb-2"
+                className="event-input"
               />
             </Col>
 
@@ -76,7 +77,7 @@ export default function EventManagement({
                 name="name"
                 value={form.location?.name || ""}
                 onChange={handleChange}
-                className="mb-2"
+                className="event-input"
               />
             </Col>
 
@@ -86,7 +87,7 @@ export default function EventManagement({
                 name="address"
                 value={form.location?.address || ""}
                 onChange={handleChange}
-                className="mb-2"
+                className="event-input"
               />
             </Col>
 
@@ -96,13 +97,15 @@ export default function EventManagement({
                 name="city"
                 value={form.location?.city || ""}
                 onChange={handleChange}
-                className="mb-2"
+                className="event-input"
               />
             </Col>
 
-            <Button type="submit" className="mt-3">
-              Save Event
-            </Button>
+            <Col md={12}>
+              <Button type="submit" className="event-submit-btn w-100">
+                Save Event
+              </Button>
+            </Col>
           </Row>
         </Form>
       </Modal.Body>
