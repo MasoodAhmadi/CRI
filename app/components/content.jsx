@@ -1,6 +1,10 @@
 "use client";
 import React from "react";
 
+import { Calendar2CheckFill } from "react-bootstrap-icons";
+import { PeopleFill } from "react-bootstrap-icons";
+import { Receipt } from "react-bootstrap-icons";
+import { useRouter } from "next/navigation";
 import {
   CardsWrapper,
   Section,
@@ -8,11 +12,10 @@ import {
   Overlay,
   Title,
 } from "../styles/content.style";
-import { Calendar2CheckFill } from "react-bootstrap-icons";
-import { PeopleFill } from "react-bootstrap-icons";
-import { Receipt } from "react-bootstrap-icons";
 
 export default function Contents() {
+  const router = useRouter();
+
   return (
     <Section>
       <Overlay />
@@ -20,21 +23,28 @@ export default function Contents() {
       <CardsWrapper>
         <Card>
           <Title>
-            <Calendar2CheckFill size={70} color="#000" />
+            <Calendar2CheckFill
+              size={70}
+              color="#000"
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                router.push("/events");
+              }}
+            />
             <br />
-            Events
+            <p>Events</p>
           </Title>
         </Card>
         <Card>
           <Title>
-            <PeopleFill size={70} color="#ff0000" />
+            <PeopleFill size={70} color="#ff0000" onClick={() => {}} />
             <br />
             Teams
           </Title>
         </Card>
         <Card>
           <Title>
-            <Receipt size={70} color="#008000" /> <br />
+            <Receipt size={70} color="#008000" onClick={() => {}} /> <br />
             Matches
           </Title>
         </Card>
