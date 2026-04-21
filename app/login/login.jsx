@@ -12,69 +12,56 @@ const Login = ({ onSwitchToRegister }) => {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const API_BASE_URL =
+    process.env.BACKEND_URL || "https://backend-express-two-taupe.vercel.app";
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsSigningIn(true);
     setErrorMessage("");
 
     try {
-      // Ensure all fields are provided
       if (!email || !password) {
         setErrorMessage("Email and password are required.");
         setIsSigningIn(false);
         return;
       }
 
-      console.log("Sending login request:", {
-        action: "login",
-        email,
-        password,
+      console.log("Sending login request:", { email, password });
+
+      const response = await fetch(`${API_BASE_URL}/api/users/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
       });
 
-      // Send POST request to the proxy with action: 'login'
-      const response = await fetch(
-        "https://backend-express-mlv3vqxxm-masoodahmadis-projects.vercel.app/api/users/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            action: "login",
-            email,
-            password,
-          }),
-        },
-      );
-
       const data = await response.json();
-      console.log("Response from proxy:", data);
+      console.log("Response from backend:", data);
 
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }
 
-      // Store user data in localStorage
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          id: data._id,
-          username: data.username,
-          name: data.name,
-          email: data.email,
-          role: data.role,
-        }),
-      );
+      // ✅ IMPORTANT: STORE TOKEN
+      localStorage.setItem("token", data.token);
+
+      // ✅ STORE USER INFO
+      localStorage.setItem("user", JSON.stringify(data.user));
 
       toast.success("Login successful!", {
         position: "bottom-left",
         autoClose: 3000,
       });
 
-      router.push("/dashboard"); // Redirect to the dashboard
+      router.push("/dashboard");
     } catch (error) {
       console.error("Login failed:", error.message);
       setErrorMessage(error.message || "An error occurred during login.");
+    } finally {
       setIsSigningIn(false);
     }
   };

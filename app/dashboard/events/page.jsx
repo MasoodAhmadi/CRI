@@ -1,15 +1,13 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  Button,
-  Container,
-  Row,
-  Col,
-  Badge,
-  Spinner,
-} from "react-bootstrap";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import { Button, Form, Spinner, Modal } from "react-bootstrap";
+
 import Navbars from "../../components/navbars";
+import BreadCrump from "../../components/breadCrump";
+import EventManagement from "../../components/eventmanagement";
+
 const API_BASE_URL =
   process.env.BACKEND_URL || "https://backend-express-two-taupe.vercel.app";
 
@@ -17,16 +15,30 @@ export default function EventsPage() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [showModal, setShowModal] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    date: "",
+    startTime: "",
+    endTime: "",
+    location: {
+      name: "",
+      address: "",
+      city: "",
+    },
+  });
+
+  // ================= FETCH EVENTS =================
   const fetchEvents = async () => {
     try {
       const res = await fetch(`${API_BASE_URL}/api/events`);
       const data = await res.json();
-
-      if (res.ok) {
-        setEvents(data);
-      }
+      if (res.ok) setEvents(data);
     } catch (err) {
-      console.error("Error fetching events:", err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -36,77 +48,91 @@ export default function EventsPage() {
     fetchEvents();
   }, []);
 
-  const now = new Date();
+  // ================= HANDLE INPUT =================
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  const upcomingEvents = events.filter((e) => new Date(e.date) >= now);
-
-  const pastEvents = events.filter((e) => new Date(e.date) < now);
-
-  const handleRegister = (eventId) => {
-    alert(`Register clicked for event: ${eventId}`);
-    // later: API call to join event
+    if (name in form.location) {
+      setForm((prev) => ({
+        ...prev,
+        location: {
+          ...prev.location,
+          [name]: value,
+        },
+      }));
+    } else {
+      setForm((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
-  const EventCard = ({ event, isPast }) => {
-    return (
-      <>
-        <Card
-          className="mb-4 shadow-lg border-0 event-card"
-          style={{
-            borderRadius: "16px",
-            overflow: "hidden",
-            transition: "0.3s",
-          }}
-        >
-          <div
-            style={{
-              background: isPast
-                ? "#6c757d"
-                : "linear-gradient(135deg, #28a745, #20c997)",
-              height: "8px",
-            }}
-          />
+  // ================= OPEN CREATE =================
+  const openCreate = () => {
+    setEditingId(null);
+    setForm({
+      title: "",
+      description: "",
+      date: "",
+      startTime: "",
+      endTime: "",
+      location: { name: "", address: "", city: "" },
+    });
+    setShowModal(true);
+  };
 
-          <Card.Body>
-            <div className="d-flex justify-content-between align-items-center mb-2">
-              <Card.Title className="mb-0">{event.title}</Card.Title>
+  // ================= OPEN EDIT =================
+  const openEdit = (event) => {
+    setEditingId(event._id);
+    setForm(event);
+    setShowModal(true);
+  };
 
-              <Badge bg={isPast ? "secondary" : "success"}>
-                {isPast ? "Past Event" : "Upcoming"}
-              </Badge>
-            </div>
+  // ================= SUBMIT (CREATE / UPDATE) =================
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-            <Card.Text>{event.description}</Card.Text>
+    const token = localStorage.getItem("token");
 
-            <p className="mb-1">
-              📍 <strong>{event.location?.name}</strong>, {event.location?.city}
-            </p>
+    const method = editingId ? "PATCH" : "POST";
+    const url = editingId
+      ? `${API_BASE_URL}/api/events/${editingId}`
+      : `${API_BASE_URL}/api/events`;
 
-            <p className="mb-1">
-              🕒 {event.startTime} - {event.endTime}
-            </p>
+    const res = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`, // ✅ THIS IS REQUIRED
+      },
+      body: JSON.stringify(form),
+    });
 
-            <p className="mb-3">📅 {new Date(event.date).toDateString()}</p>
+    if (res.ok) {
+      fetchEvents();
+      setShowModal(false);
+    } else {
+      const data = await res.json();
+      console.log("ERROR:", data);
+      alert(data.message || "Error saving event");
+    }
+  };
 
-            {!isPast && (
-              <Button
-                variant="success"
-                className="w-100"
-                onClick={() => handleRegister(event._id)}
-              >
-                Register
-              </Button>
-            )}
-          </Card.Body>
-        </Card>
-      </>
-    );
+  // ================= DELETE EVENT =================
+  const deleteEvent = async (id) => {
+    if (!confirm("Are you sure you want to delete this event?")) return;
+
+    const res = await fetch(`${API_BASE_URL}/api/events/${id}`, {
+      method: "DELETE",
+    });
+
+    if (res.ok) {
+      setEvents((prev) => prev.filter((e) => e._id !== id));
+    }
   };
 
   if (loading) {
     return (
       <Container className="py-5 text-center">
-        <Spinner animation="border" />
+        <Spinner />
       </Container>
     );
   }
@@ -114,37 +140,63 @@ export default function EventsPage() {
   return (
     <>
       <Navbars />
+      <BreadCrump />
+      <Container className="py-4">
+        <div className="d-flex justify-content-between mb-3">
+          <h2>Event Management</h2>
 
-      <Container className="py-5">
-        {/* UPCOMING EVENTS */}
-        <h2 className="mb-3">🟢 Upcoming Events</h2>
+          <Button onClick={openCreate}>+ Create Event</Button>
+        </div>
 
-        {upcomingEvents.length === 0 ? (
-          <p>No upcoming events</p>
-        ) : (
-          <Row>
-            {upcomingEvents.map((event) => (
-              <Col md={4} key={event._id}>
-                <EventCard event={event} isPast={false} />
-              </Col>
-            ))}
-          </Row>
-        )}
+        {/* EVENTS LIST */}
+        <Row>
+          {events.map((event) => (
+            <Col md={4} key={event._id}>
+              <Card className="mb-3 shadow-sm">
+                <Card.Body>
+                  <Card.Title>{event.title}</Card.Title>
 
-        {/* PAST EVENTS */}
-        <h2 className="mt-5 mb-3">⚫ Past Events</h2>
+                  <Card.Text>{event.description}</Card.Text>
 
-        {pastEvents.length === 0 ? (
-          <p>No past events</p>
-        ) : (
-          <Row>
-            {pastEvents.map((event) => (
-              <Col md={4} key={event._id}>
-                <EventCard event={event} isPast={true} />
-              </Col>
-            ))}
-          </Row>
-        )}
+                  <p>
+                    📍 {event.location?.name}, {event.location?.city}
+                  </p>
+
+                  <p>📅 {new Date(event.date).toDateString()}</p>
+
+                  <div className="d-flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="warning"
+                      onClick={() => openEdit(event)}
+                    >
+                      Edit
+                    </Button>
+
+                    <Button
+                      size="sm"
+                      variant="danger"
+                      onClick={() => deleteEvent(event._id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+
+        {/* MODAL (CREATE / EDIT) */}
+        <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
+          <EventManagement
+            editingId={editingId}
+            form={form}
+            setForm={setForm}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+          />
+        </Modal>
       </Container>
     </>
   );
