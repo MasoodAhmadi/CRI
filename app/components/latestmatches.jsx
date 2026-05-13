@@ -6,9 +6,9 @@ import { Container, Row, Col, Card, Badge, Spinner } from "react-bootstrap";
 import countryFlags from "../utils/countryFlags";
 
 const API_BASE_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
   process.env.NEXT_PUBLIC_BACKEND_URL_3 ||
   process.env.NEXT_PUBLIC_BACKEND_URL_2 ||
-  process.env.NEXT_PUBLIC_BACKEND_URL ||
   "There is no backend service working!";
 
 export default function LatestMatches() {

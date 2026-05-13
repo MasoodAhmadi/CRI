@@ -6,8 +6,8 @@ import Navbars from "../components/navbars";
 import PaginationComponent from "../components/pagination";
 import countryFlags from "../utils/countryFlags";
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL_3 ||
   process.env.NEXT_PUBLIC_BACKEND_URL ||
+  process.env.NEXT_PUBLIC_BACKEND_URL_3 ||
   process.env.NEXT_PUBLIC_BACKEND_URL_2 ||
   "There is no backend service working!";
 

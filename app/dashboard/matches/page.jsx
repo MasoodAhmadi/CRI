@@ -8,9 +8,9 @@ import { Row, Col, Card, Badge } from "react-bootstrap";
 import countryFlags from "../../utils/countryFlags";
 
 const API_BASE_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
   process.env.NEXT_PUBLIC_BACKEND_URL_3 ||
   process.env.NEXT_PUBLIC_BACKEND_URL_2 ||
-  process.env.NEXT_PUBLIC_BACKEND_URL ||
   "There is no backend service working!";
 
 const matchFormats = [
