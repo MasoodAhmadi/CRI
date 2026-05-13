@@ -9,7 +9,7 @@ import BreadCrump from "../../components/breadCrump";
 import EventManagement from "../../components/eventmanagement";
 
 const API_BASE_URL =
-  process.env.BACKEND_URL || "https://backend-express-two-taupe.vercel.app";
+  process.env.NEXT_PUBLIC_BACKEND_URL || "no backend service working!";
 
 export default function EventsPage() {
   const [events, setEvents] = useState([]);

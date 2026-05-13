@@ -1,28 +1,33 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { use, useState } from 'react';
 import Image from "next/image";
 import Footer from './components/footer';
 import Navbar from './components/navbars';
 import Carousels from './components/carousel';
 import ScrollToTop from './components/scroll';
 import useWindowSize from './utils/useWindowsSize';
-import { ArrowRight } from "react-bootstrap-icons";
+import { ArrowRight, Router } from "react-bootstrap-icons";
 import { Card, Button, Nav } from "react-bootstrap";
 import { Container, Row, Col, ListGroup } from 'react-bootstrap';
 import { dummyEvents } from '../data/dummyData';
 import { image3 } from './utils/links';
 import Contents from './components/content';
+import LatestMatches from './components/latestmatches';
+import { useRouter } from "next/navigation";
+
 
 export default function Home() {
 
   const size = useWindowSize();
   const [events, setEvents] = useState(dummyEvents);
+  const router = useRouter();
 
 
   return (
     <div className='background-color'>
       <Navbar />
+      <LatestMatches />
 
       {/* 2. About Us Section */}
       <Contents />
@@ -76,7 +81,6 @@ export default function Home() {
 
         <div className="position-relative" style={{ minHeight: "700px" }}>
           <img
-            fluid
             loading="lazy"
             src={image3}
             alt="a description of the image"
@@ -190,13 +194,45 @@ export default function Home() {
                 }}
               >
                 <Image
-                  src="/hewad.png"
-                  alt="Hewad Market"
+                  src="/insaf.png"
+                  alt="Insaf Market"
                   width={190}
                   height={190}
                   fluid
                   className="mb-3"
                   style={{ objectFit: "contain" }}
+                  onClick={() => { window.open('https://insafmarket.fi/', "_blank") }}
+                />
+                <p className="text-muted small mb-0">
+                  Sponsor One has been a key supporter of our mission and growth.
+                </p>
+              </div>
+            </div>
+          </Col>
+          <Col xs={12} md={4} className=''>
+            <div className="d-flex justify-content-center align-items-center" style={{ height: "100%" }}>
+              <div
+                className="float-horizontal"
+
+                style={{
+                  padding: "20px",
+                  borderRadius: "12px",
+                  background: "#fff",
+                  boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center"
+                }}
+              >
+                <Image
+                  src="/nupelda.png"
+                  alt="nupelda"
+                  width={190}
+                  height={190}
+                  fluid
+                  className="mb-3"
+                  style={{ objectFit: "contain" }}
+                  onClick={() => { window.open('https://nupelda.fi/', "_blank") }}
                 />
                 <p className="text-muted small mb-0">
                   Sponsor One has been a key supporter of our mission and growth.
@@ -227,6 +263,7 @@ export default function Home() {
                   fluid
                   className="mb-3"
                   style={{ objectFit: "contain", display: "block", margin: "0 auto" }}
+                  onClick={() => { window.open("https://www.hewadmarket.fi/", "_blank") }}
                 />
                 <p className="text-muted small mb-0 text-center">
                   Sponsor One has been a key supporter of our mission and growth.

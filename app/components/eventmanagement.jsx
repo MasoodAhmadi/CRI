@@ -6,7 +6,6 @@ import { Modal, Form, Row, Col, Button } from "react-bootstrap";
 export default function EventManagement({
   editingId,
   form,
-  setForm,
   handleChange,
   handleSubmit,
 }) {

@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import bcrypt from "bcryptjs";
 import { Button, Card, Form } from "react-bootstrap";
-
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || "error fetching backend URL";
 const Register = ({ onSwitchToLogin, onRegisterSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,23 +32,20 @@ const Register = ({ onSwitchToLogin, onRegisterSuccess }) => {
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Call your Express API
-      const response = await fetch(
-        "https://backend-express-mlv3vqxxm-masoodahmadis-projects.vercel.app/api/users",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password: hashedPassword,
-            phone,
-            city,
-            role: "player", // or "user"
-            name: email.split("@")[0], // optional, just example
-          }),
+      const response = await fetch(`${API_BASE_URL}/api/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          email,
+          password: hashedPassword,
+          phone,
+          city,
+          role: "player", // or "user"
+          name: email.split("@")[0], // optional, just example
+        }),
+      });
 
       const data = await response.json();
 

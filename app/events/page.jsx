@@ -1,18 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Card,
-  Button,
-  Container,
-  Row,
-  Col,
-  Badge,
-  Spinner,
-} from "react-bootstrap";
+import { Card, Button, Container } from "react-bootstrap";
+import { Row, Col, Badge, Spinner } from "react-bootstrap";
 import Navbars from "../components/navbars";
 
 const API_BASE_URL =
-  process.env.BACKEND_URL || "https://backend-express-two-taupe.vercel.app";
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
+  "There is no backend service working! ";
 
 export default function EventsPage() {
   const [events, setEvents] = useState([]);

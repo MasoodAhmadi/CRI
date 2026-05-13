@@ -1,11 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Accordations from "./accordation";
 import { ToastContainer, toast } from "react-toastify";
-import { PersonBadgeFill, Phone } from "react-bootstrap-icons";
 import { Form, Button, Container, Row, Tabs, Tab } from "react-bootstrap";
-import { Col, Alert, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 export default function PrivacyandTerms({
   setShowTermsModal,
   setAcceptedTerms,

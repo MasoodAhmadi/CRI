@@ -27,8 +27,7 @@ export default function UserManagement() {
   const size = useWindowSize();
 
   const API_BASE_URL =
-    "https://backend-express-two-taupe.vercel.app" ||
-    "error fetching backend URL";
+    process.env.NEXT_PUBLIC_BACKEND_URL || "no backend service working!";
   // ✅ Fetch users from Express API
   const fetchUsers = async () => {
     try {

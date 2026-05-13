@@ -8,6 +8,8 @@ import { Col, Alert, Modal } from "react-bootstrap";
 import Privacy from "./privacyandterms";
 import PrivacyandTerms from "./privacyandterms";
 
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || "error fetching backend URL";
 export default function Membership() {
   const [form, setForm] = useState({
     name: "",
@@ -22,7 +24,6 @@ export default function Membership() {
   const [submitted, setSubmitted] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
-  const API_BASE_URL = process.env.BACKEND_URL || "error fetching backend URL";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,20 +61,17 @@ export default function Membership() {
         email: form.email,
         phone: form.phone,
         city: form.city,
-        password: "default123", // backend requires it
-        role: "player", // optional if backend sets default
+        password: process.env.NEXT_PUBLIC_DEFAULT_USERPASSWORD,
+        role: process.env.NEXT_PUBLIC_ROLE,
       };
 
-      const response = await fetch(
-        "https://backend-express-two-taupe.vercel.app/api/users",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
+      const response = await fetch(`${API_BASE_URL}/api/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(payload),
+      });
 
       const data = await response.json();
 

@@ -23,6 +23,9 @@ export default function BreadCrump() {
       {pathname.includes("events") && (
         <Breadcrumb.Item active>Event Management</Breadcrumb.Item>
       )}
+      {pathname.includes("matches") && (
+        <Breadcrumb.Item active>Match Management</Breadcrumb.Item>
+      )}
     </Breadcrumb>
   );
 }

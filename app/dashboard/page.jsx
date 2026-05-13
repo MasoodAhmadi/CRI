@@ -1,17 +1,22 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import { Button, Container, Row, Col } from "react-bootstrap";
-import { PeopleFill, CalendarEvent } from "react-bootstrap-icons";
+import { PeopleFill, CalendarEvent, TrophyFill } from "react-bootstrap-icons";
+
 import Navbars from "../components/navbars";
 import BreadCrump from "../components/breadCrump";
+
 export default function DashboardPage() {
   const router = useRouter();
 
   return (
     <>
       <Navbars />
+
       <Container className="pt-3">
         <BreadCrump />
+
         <Container
           fluid
           className="d-flex align-items-center justify-content-center"
@@ -19,13 +24,15 @@ export default function DashboardPage() {
         >
           <Row
             className="g-4 justify-content-center w-100"
-            style={{ maxWidth: "900px" }}
+            style={{ maxWidth: "1200px" }}
           >
             {/* User Management */}
-            <Col md={6}>
+            <Col lg={4} md={6}>
               <div className="p-4 shadow rounded bg-light text-center h-100">
-                <PeopleFill size={40} className="mb-2 text-primary" />
+                <PeopleFill size={40} className="mb-3 text-primary" />
+
                 <h4>User Management</h4>
+
                 <p className="text-muted">
                   Manage players, approvals, and user roles
                 </p>
@@ -41,10 +48,12 @@ export default function DashboardPage() {
             </Col>
 
             {/* Event Management */}
-            <Col md={6}>
+            <Col lg={4} md={6}>
               <div className="p-4 shadow rounded bg-light text-center h-100">
-                <CalendarEvent size={40} className="mb-2 text-success" />
+                <CalendarEvent size={40} className="mb-3 text-success" />
+
                 <h4>Event Management</h4>
+
                 <p className="text-muted">
                   Create, update, and manage cricket events
                 </p>
@@ -55,6 +64,27 @@ export default function DashboardPage() {
                   onClick={() => router.push("/dashboard/events")}
                 >
                   Go to Events
+                </Button>
+              </div>
+            </Col>
+
+            {/* Matches Management */}
+            <Col lg={4} md={6}>
+              <div className="p-4 shadow rounded bg-light text-center h-100">
+                <TrophyFill size={40} className="mb-3 text-warning" />
+
+                <h4>Matches Management</h4>
+
+                <p className="text-muted">
+                  Add, update,and delete match history
+                </p>
+
+                <Button
+                  variant="warning"
+                  className="w-100 text-white"
+                  onClick={() => router.push("/dashboard/matches")}
+                >
+                  Go to Matches
                 </Button>
               </div>
             </Col>

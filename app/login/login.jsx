@@ -13,7 +13,8 @@ const Login = ({ onSwitchToRegister }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const API_BASE_URL =
-    process.env.BACKEND_URL || "https://backend-express-two-taupe.vercel.app";
+    process.env.NEXT_PUBLIC_BACKEND_URL ||
+    "There is no backend service working!";
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsSigningIn(true);

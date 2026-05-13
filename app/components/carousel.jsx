@@ -7,7 +7,6 @@ export default function Carousels({ size }) {
   const slideHeight = size.width > 782 ? "1000px" : "280px";
 
   return (
-    // <Container fluid>
     <Carousel>
       <Carousel.Item>
         <div
@@ -83,6 +82,5 @@ export default function Carousels({ size }) {
         )}
       </Carousel.Item>
     </Carousel>
-    // </Container>
   );
 }
