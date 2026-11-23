@@ -11,10 +11,12 @@ export default function Footer() {
           <Col md={4} className="mb-3 mb-md-0">
             <div className="mb-2 d-flex justify-content-center">
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61573336199254"
                 className="me-3"
                 style={{ color: "#3b5998" }}
                 aria-label="Facebook"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <FaFacebook size={24} />
               </a>
