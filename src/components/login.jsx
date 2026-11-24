@@ -12,8 +12,7 @@ const Login = ({ onSwitchToRegister }) => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const API_BASE_URL =
-    import.meta.env.VITE_BACKEND_URL ||
-    "There is no backend service working!";
+    import.meta.env.VITE_BACKEND_URL || "There is no backend service working!";
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsSigningIn(true);

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { LogoutButton, NavRight } from "../styles/navbar.style";
@@ -61,16 +60,31 @@ export default function Navbar() {
               style={{ cursor: "pointer" }}
             />
             <NavLinks>
-              <NavLink forwardedAs={Link} to="/">Home</NavLink>
-              <NavLink forwardedAs={Link} to="/#about">About</NavLink>
-              <NavLink forwardedAs={Link} to="/events">Events</NavLink>
-              <NavLink forwardedAs={Link} to="/matches">Matches</NavLink>
-              <NavLink forwardedAs={Link} to="/membership">Membership</NavLink>
+              <NavLink forwardedAs={Link} to="/">
+                Home
+              </NavLink>
+              <NavLink forwardedAs={Link} to="/#about">
+                About
+              </NavLink>
+              <NavLink forwardedAs={Link} to="/events">
+                Events
+              </NavLink>
+              <NavLink forwardedAs={Link} to="/matches">
+                Matches
+              </NavLink>
+              <NavLink forwardedAs={Link} to="/squad">
+                Squad
+              </NavLink>
+              <NavLink forwardedAs={Link} to="/membership">
+                Membership
+              </NavLink>
 
               <NavRight>
                 {userLoggedIn ? (
                   <>
-                    <NavLink forwardedAs={Link} to="/dashboard">Dashboard</NavLink>
+                    <NavLink forwardedAs={Link} to="/dashboard">
+                      Dashboard
+                    </NavLink>
                     <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
                   </>
                 ) : (

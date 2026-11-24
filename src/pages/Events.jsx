@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Card, Button, Container } from "react-bootstrap";
 import { Row, Col, Badge, Spinner } from "react-bootstrap";
 import Navbars from "../components/navbars";
+import Footer from "../components/footer";
 
 const API_BASE_URL =
-  import.meta.env.VITE_BACKEND_URL ||
-  "There is no backend service working! ";
+  import.meta.env.VITE_BACKEND_URL || "There is no backend service working! ";
 
 export default function EventsPage() {
   const [events, setEvents] = useState([]);
@@ -140,6 +140,7 @@ export default function EventsPage() {
           </Row>
         )}
       </Container>
+      <Footer />
     </>
   );
 }

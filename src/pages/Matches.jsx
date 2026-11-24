@@ -1,9 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 import { Card, Container, Row, Col, Badge, Spinner } from "react-bootstrap";
 import Navbars from "../components/navbars";
 import PaginationComponent from "../components/pagination";
 import countryFlags from "../utils/countryFlags";
+import Footer from "../components/footer";
 const API_BASE_URL =
   import.meta.env.VITE_BACKEND_URL ||
   import.meta.env.VITE_BACKEND_URL_3 ||
@@ -223,6 +223,7 @@ export default function EventsPage() {
           </>
         )}
       </Container>
+      <Footer />
     </div>
   );
 }

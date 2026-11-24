@@ -1,6 +1,6 @@
 export const theme = {
     colors: {
-        primary: "#4CAF50",      // main green
+        primary: "#54913e",      // main green
         secondary: "#28A745",    // darker green
         accent: "#FFCC00",       // highlight / hover
         danger: "#DC3545",

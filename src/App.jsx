@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import ScrollManager from "./ScrollManager";
 
 import Home from "./pages/Home";
-import About from "./pages/About";
+// import About from "./pages/About";
 import Events from "./pages/Events";
 import Matches from "./pages/Matches";
 import MembershipPage from "./pages/MembershipPage";
@@ -19,7 +19,7 @@ export default function App() {
       <ScrollManager />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        {/* <Route path="/about" element={<About />} /> */}
         <Route path="/events" element={<Events />} />
         <Route path="/matches" element={<Matches />} />
         <Route path="/membership" element={<MembershipPage />} />

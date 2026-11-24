@@ -1,167 +1,19 @@
-
-import React, { useState } from "react";
-import Footer from '../components/footer';
-import Navbar from '../components/navbars';
-import Carousels from '../components/carousel';
-import ScrollToTop from '../components/scroll';
-import useWindowSize from '../utils/useWindowsSize';
-import { ArrowRight } from "react-bootstrap-icons";
-import { Card, Button, Nav } from "react-bootstrap";
-import { Container, Row, Col, ListGroup } from 'react-bootstrap';
-import { dummyEvents } from '../data/dummyData';
-import { image3 } from '../utils/links';
-import Contents from '../components/content';
-import LatestMatches from '../components/latestmatches';
-import { Link } from "react-router-dom";
-
+import React from "react";
+import Footer from "../components/footer";
+import Events from "../components/events";
+import Navbar from "../components/navbars";
+import { Row, Col } from "react-bootstrap";
+import Contents from "../components/content";
+import ScrollToTop from "../components/scroll";
+import AboutUsCarousel from "../components/aboutuscarousel";
 
 export default function Home() {
-
-  const size = useWindowSize();
-  const [events, setEvents] = useState(dummyEvents);
-
-
   return (
-    <div className='background-color'>
+    <div>
       <Navbar />
-      <LatestMatches />
-
-      {/* 2. About Us Section */}
       <Contents />
-      <Carousels size={size} />
-      <Container className="py-5 px-4" id='about'>
-
-        <Row className="align-items-center gx-5 gy-4">
-          {/* Left Column - Image */}
-          <Col md={6} className="text-center">
-            <img
-              src="/aboutus.jpg"
-              alt="About us"
-              className="img-fluid rounded-4 shadow-lg"
-              style={{
-                objectFit: "cover",
-                maxHeight: "500px",
-                width: "100%",
-              }}
-            />
-          </Col>
-
-          <Col md={6}>
-            <h2 className="mb-4 fw-bold text-dark text-center text-md-start">
-              About Us
-            </h2>
-            <p className="fs-5 text-muted lh-lg mb-4">
-              The Afghanistan Cricket Association in Tampere, Finland supports Afghan cricket players and fans living in Finland. It brings people together through games, training, and community events. The association helps young players grow and keeps Afghan culture alive through the love of cricket.
-            </p>
-
-            <ListGroup variant="flush" className="fs-6">
-              <ListGroup.Item className="bg-transparent border-0 ps-0">
-                ✅ Discipline defines the spirit of Afghanistan’s cricket team, both on and off the field.
-              </ListGroup.Item>
-              <ListGroup.Item className="bg-transparent border-0 ps-0">
-                🚀 With unwavering compassion, players unite the nation through every match they play.
-              </ListGroup.Item>
-              <ListGroup.Item className="bg-transparent border-0 ps-0">
-                🧠 The team's resilience inspires many, overcoming every challenge with pride.
-              </ListGroup.Item>
-              <ListGroup.Item className="bg-transparent border-0 ps-0">
-                🌐 GBursting with potential, Afghanistan continues to rise as a powerful force in Finland cricket.
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-        </Row>
-      </Container>
-
-
-      {/* 3. News Section (your provided component) */}
-      <div id='events' className="py-5" >
-
-        <div className="position-relative" style={{ minHeight: "700px" }}>
-          <img
-            loading="lazy"
-            src={image3}
-            alt="a description of the image"
-            className="top-0 left-0 w-100 h-100 object-fit-cover position-absolute"
-            style={{ opacity: 0.5, zIndex: -1, }}
-          />
-          <div
-            className="position-relative"
-            style={{ backgroundColor: "", minHeight: "500px" }}
-          >
-            <div className="container pt-5 d-flex flex-row justify-content-between align-items-center">
-              <h1 className="text-light" style={{ fontWeight: 700 }}>
-                Events
-              </h1>
-              <div
-                className="d-flex flex-row justify-content-center align-items-center"
-                role="button"
-              >
-                <p className="m-0 text-light" style={{ fontWeight: 500 }}>
-                  <Nav.Link as={Link} to="/events">all Events</Nav.Link>
-                </p>
-                <ArrowRight className="mx-3" size={21} style={{ color: "#fff" }} />
-
-              </div>
-            </div>
-            <Container className="mb-4">
-              <Row className="g-2 justify-content-center">
-                {" "}
-                {events.map((event) => (
-                  <Col
-                    sm={12}
-                    md={12}
-                    lg={6}
-                    xl={6}
-                    className="mt-3 mb-3"
-                    key={event.id}
-                  >
-                    <Card className="h-100 text-center shadow-sm mb-3">
-                      <Card.Body>
-                        <div
-                          style={{
-                            width: "80px",
-                            height: "80px",
-                            margin: "0 auto 20px auto",
-                            borderRadius: "20px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                        >
-                          <img src="/logo.png" alt="Event Icon" width={80} height={80} style={{ objectFit: "contain" }}
-
-                          />
-                          {/* <span style={{ fontSize: "36px", color: "#4caf50" }}>
-                            🎙️
-                          </span> */}
-                        </div>
-                        <Card.Title className="fw-bold text-dark">
-                          {event.title}
-                        </Card.Title>
-                        <p className="text-muted small mb-2">
-                          {event.author} - {event.date}
-                        </p>
-                        <hr />
-                        <Card.Text className="text-muted small">
-                          {event.description}
-                        </Card.Text>
-                        <Button
-                          variant="success"
-                          className="mt-3 px-4"
-                          as={Link}
-                          to={`/events/${event.id}`}
-                        >
-                          Read More
-                        </Button>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-            </Container>
-          </div>
-        </div>
-      </div>
+      <AboutUsCarousel />
+      <Events />
 
       {/* 3. Sponser Section */}
       <div
@@ -175,11 +27,13 @@ export default function Home() {
       >
         <h2 className="text-center mb-5 fw-bold text-dark">Our Sponsors</h2>
         <Row className="g-4 d-flex text-center justify-content-center mx-0">
-          <Col xs={12} md={4} className=''>
-            <div className="d-flex justify-content-center align-items-center" style={{ height: "100%" }}>
+          <Col xs={12} md={4} className="">
+            <div
+              className="d-flex justify-content-center align-items-center"
+              style={{ height: "100%" }}
+            >
               <div
                 className="float-horizontal"
-
                 style={{
                   padding: "20px",
                   borderRadius: "12px",
@@ -187,7 +41,7 @@ export default function Home() {
                   boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
                 <img
@@ -197,19 +51,24 @@ export default function Home() {
                   height={190}
                   className="mb-3"
                   style={{ objectFit: "contain" }}
-                  onClick={() => { window.open('https://insafmarket.fi/', "_blank") }}
+                  onClick={() => {
+                    window.open("https://insafmarket.fi/", "_blank");
+                  }}
                 />
                 <p className="text-muted small mb-0">
-                  Sponsor One has been a key supporter of our mission and growth.
+                  Sponsor One has been a key supporter of our mission and
+                  growth.
                 </p>
               </div>
             </div>
           </Col>
-          <Col xs={12} md={4} className=''>
-            <div className="d-flex justify-content-center align-items-center" style={{ height: "100%" }}>
+          <Col xs={12} md={4} className="">
+            <div
+              className="d-flex justify-content-center align-items-center"
+              style={{ height: "100%" }}
+            >
               <div
                 className="float-horizontal"
-
                 style={{
                   padding: "20px",
                   borderRadius: "12px",
@@ -217,7 +76,7 @@ export default function Home() {
                   boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
                 <img
@@ -227,17 +86,23 @@ export default function Home() {
                   height={190}
                   className="mb-3"
                   style={{ objectFit: "contain" }}
-                  onClick={() => { window.open('https://nupelda.fi/', "_blank") }}
+                  onClick={() => {
+                    window.open("https://nupelda.fi/", "_blank");
+                  }}
                 />
                 <p className="text-muted small mb-0">
-                  Sponsor One has been a key supporter of our mission and growth.
+                  Sponsor One has been a key supporter of our mission and
+                  growth.
                 </p>
               </div>
             </div>
           </Col>
 
           <Col xs={12} md={4}>
-            <div className="d-flex justify-content-center align-items-center" style={{ height: "100%" }}>
+            <div
+              className="d-flex justify-content-center align-items-center"
+              style={{ height: "100%" }}
+            >
               <div
                 className="float-horizontal"
                 style={{
@@ -247,7 +112,7 @@ export default function Home() {
                   boxShadow: "0 4px 10px rgba(0,0,0,0.06)",
                   display: "flex",
                   flexDirection: "column",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
                 <img
@@ -256,11 +121,18 @@ export default function Home() {
                   width={190}
                   height={190}
                   className="mb-3"
-                  style={{ objectFit: "contain", display: "block", margin: "0 auto" }}
-                  onClick={() => { window.open("https://www.hewadmarket.fi/", "_blank") }}
+                  style={{
+                    objectFit: "contain",
+                    display: "block",
+                    margin: "0 auto",
+                  }}
+                  onClick={() => {
+                    window.open("https://www.hewadmarket.fi/", "_blank");
+                  }}
                 />
                 <p className="text-muted small mb-0 text-center">
-                  Sponsor One has been a key supporter of our mission and growth.
+                  Sponsor One has been a key supporter of our mission and
+                  growth.
                 </p>
               </div>
             </div>
@@ -269,10 +141,6 @@ export default function Home() {
       </div>
       <ScrollToTop />
       <Footer />
-
-    </div >
+    </div>
   );
-};
-
-
-
+}

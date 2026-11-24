@@ -28,18 +28,14 @@ export default function Carousels({ size }) {
         </div>
         {size.width > 782 ? (
           <div className="carousel-caption d-none d-md-block">
-            <h2>Shpageeza Cricket</h2>
-            <strong>
-              Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere
-              - Finland
-            </strong>
+            <p>Shpageeza Cricket</p>
           </div>
         ) : (
           <Carousel.Caption>
-            <p style={{ fontSize: "0.6rem", marginBottom: "0.5rem" }}>
+            <p style={{ fontSize: "0.1rem", marginBottom: "0.1rem" }}>
               Shpageeza Cricket
             </p>
-            <p style={{ fontSize: "0.5rem", marginBottom: "0.5rem" }}>
+            <p style={{ fontSize: "0.1rem", marginBottom: "0.1rem" }}>
               Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere
               - Finland
             </p>
@@ -69,21 +65,21 @@ export default function Carousels({ size }) {
         </div>
         {size.width > 782 ? (
           <div className="carousel-caption d-none d-md-block">
-            <h2>Shpageeza Cricket</h2>
-            <strong>
+            <p>Shpageeza Cricket</p>
+            {/* <strong>
               Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere
               - Finland
-            </strong>
+            </strong> */}
           </div>
         ) : (
           <Carousel.Caption>
-            <p style={{ fontSize: "0.6rem", marginBottom: "0.5rem" }}>
+            <p style={{ fontSize: "0.1rem", marginBottom: "0.1rem" }}>
               Shpageeza Cricket
             </p>
-            <p style={{ fontSize: "0.5rem", marginBottom: "0.5rem" }}>
+            {/* <p style={{ fontSize: "0.1rem", marginBottom: "0.1rem" }}>
               Cricket tournament from Afghanis to Afghanis in Hervanta, Tampere
               - Finland
-            </p>
+            </p> */}
           </Carousel.Caption>
         )}
       </Carousel.Item>

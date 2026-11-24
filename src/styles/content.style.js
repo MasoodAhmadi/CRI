@@ -1,42 +1,55 @@
+
 import styled from "styled-components";
-import { bamyanImg } from "../utils/links";
 
 export const Section = styled.section`
   position: relative;
-  width: 100%;
-  height: 70vh;
-  max-height: 700px;
-  background-image: url(${bamyanImg});
-  background-position: center;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  // width: 100%;
+  min-height: 700px;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  @media (max-width: 768px) {
+    background-attachment: scroll;
+  }
 `;
 
-export const Overlay = styled.div`
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  z-index: 1;
-`;
+// export const Overlay = styled.div`
+//   // position: absolute;
+//   // inset: 0;
+
+//   background: linear-gradient(
+//     to bottom,
+//     rgba(3, 15, 48, 0.15),
+//     rgba(3, 15, 48, 0.3)
+//   );
+
+//   // z-index: 1;
+// `;
 
 export const CardsWrapper = styled.div`
   position: relative;
   z-index: 2;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* ✅ ALWAYS 3 IN A ROW */
+  grid-template-columns: repeat(3, minmax(0, 150px));
+
+  justify-content: center;
+  gap: 2rem;
 
   width: 100%;
-  max-width: 1100px;
-
-  gap: clamp(1rem, 5vw, 4.5rem); /* responsive gap */
   padding: 0 1rem;
+
+  @media (max-width: 576px) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
 `;
 
 export const Card = styled.div`
-  background: rgba(255, 255, 255, 0.7); /* make it more transparent */
+  background: rgba(255, 255, 255, 0.82);
+
+  border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 20px;
 
   aspect-ratio: 1 / 1;
@@ -46,17 +59,33 @@ export const Card = styled.div`
   align-items: center;
   justify-content: center;
 
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(8px); /* optional: adds nice frosted glass effect */
-`;
+  cursor: pointer;
 
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-7px);
+    background: rgba(255, 255, 255, 0.95);
+
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.35),
+      0 0 20px rgba(100, 170, 255, 0.3);
+  }
+`;
 
 export const Title = styled.h2`
   margin: 0;
   font-weight: 700;
   text-align: center;
-  color: #000000ff;
+  color: #061b45;
 
-  font-size: clamp(1rem, 4.5vw, 2.2rem); /* responsive text */
-  line-height: 1.2;
+  font-size: clamp(0.85rem, 2vw, 1.5rem);
+  line-height: 1.5;
 `;

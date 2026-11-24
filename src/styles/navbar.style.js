@@ -87,7 +87,7 @@ export const BrandTitle = styled.h1`
 
 export const MainNavbar = styled(Navbar)`
   background-color: ${({ theme }) => theme.colors.primary};
-  padding: 0.75rem 1rem;
+  // padding: 0.75rem 1rem;
 `;
 
 /* NAV CONTAINER */
