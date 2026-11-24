@@ -43,26 +43,47 @@ export default function Content() {
   //   fetchLatestMatches();
   // }, []);
 
-  const fetchEvents = async () => {
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/matches`);
-      const data = await res.json();
-
-      if (res.ok) {
-        setMatches(data.data.slice(0, 3));
-      } else {
-        console.error("Failed to fetch events:", data);
-      }
-    } catch (err) {
-      console.error("Error fetching events:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-  console.log("Fetched Matches:", matches);
-
   useEffect(() => {
-    fetchEvents();
+    const controller = new AbortController();
+
+    const fetchLatestMatches = async () => {
+      try {
+        if (!API_BASE_URL) {
+          throw new Error("Backend URL is not configured.");
+        }
+
+        setLoading(true);
+
+        const response = await fetch(`${API_BASE_URL}/api/matches`, {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`API Error: ${response.status}`);
+        }
+
+        const result = await response.json();
+
+        const latestMatches = Array.isArray(result.data)
+          ? result.data.slice(0, 3)
+          : [];
+
+        setMatches(latestMatches);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Failed to fetch matches:", error);
+          setMatches([]);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchLatestMatches();
+
+    return () => controller.abort();
   }, []);
 
   return (
