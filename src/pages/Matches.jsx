@@ -1,53 +1,53 @@
-import React, { useEffect, useState } from "react";
-import { Card, Container, Row, Col, Badge, Spinner } from "react-bootstrap";
-import Navbars from "../components/navbars";
-import PaginationComponent from "../components/pagination";
-import countryFlags from "../utils/countryFlags";
 import Footer from "../components/footer";
+import Navbars from "../components/navbars";
+import countryFlags from "../utils/countryFlags";
+import React, { useEffect, useState } from "react";
+import PaginationComponent from "../components/pagination";
+import { Card, Container, Row, Col, Badge, Spinner } from "react-bootstrap";
+
 const API_BASE_URL =
   import.meta.env.VITE_BACKEND_URL ||
   import.meta.env.VITE_BACKEND_URL_3 ||
   import.meta.env.VITE_BACKEND_URL_2 ||
   "There is no backend service working!";
 
-export default function EventsPage() {
-  const [events, setEvents] = useState([]);
+export default function MatchesPage() {
+  const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Pagination States
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 6;
+  const pageSize = 3;
 
-  const fetchEvents = async () => {
+  const fetchMatches = async () => {
     try {
       const res = await fetch(`${API_BASE_URL}/api/matches`);
       const data = await res.json();
 
       if (res.ok) {
-        setEvents(data.data);
+        setMatches(data.data);
       } else {
-        console.error("Failed to fetch events:", data);
+        console.error("Failed to fetch matches:", data);
       }
     } catch (err) {
-      console.error("Error fetching events:", err);
+      console.error("Error fetching matches:", err);
     } finally {
       setLoading(false);
     }
   };
-  console.log("Fetched Matches:", events);
+  console.log("Fetched Matches:", matches);
 
   useEffect(() => {
-    fetchEvents();
+    fetchMatches();
   }, []);
 
   // Afghanistan Wins Count
-  const afghanistanWins = events.filter(
+  const afghanistanWins = matches.filter(
     (match) => match.winner === "Afghanistan",
   ).length;
 
   // Pagination Logic
   const startIndex = (currentPage - 1) * pageSize;
-  const paginatedMatches = events.slice(startIndex, startIndex + pageSize);
+  const paginatedMatches = matches.slice(startIndex, startIndex + pageSize);
 
   return (
     <div style={{ background: "#f5f7fb", minHeight: "100vh" }}>
@@ -67,7 +67,7 @@ export default function EventsPage() {
 
           <div className="d-flex gap-3 flex-wrap">
             <Badge bg="dark" className="px-3 py-2 fs-6">
-              Total Matches: {events.length}
+              Total Matches: {matches.length}
             </Badge>
 
             <div
@@ -214,7 +214,7 @@ export default function EventsPage() {
             {/* Pagination */}
             <div className="mt-4">
               <PaginationComponent
-                itemsCount={events.length}
+                itemsCount={matches.length}
                 pageSize={pageSize}
                 currentPage={currentPage}
                 onPageChange={(page) => setCurrentPage(page)}

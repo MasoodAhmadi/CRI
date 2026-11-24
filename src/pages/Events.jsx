@@ -38,7 +38,6 @@ export default function EventsPage() {
 
   const handleRegister = (eventId) => {
     alert(`Register clicked for event: ${eventId}`);
-    // later: API call to join event
   };
 
   const EventCard = ({ event, isPast }) => {

@@ -35,7 +35,9 @@ export default function Footer() {
           </Col>
 
           <Col md={4}>
-            <p className="mb-0">Contact: info@example.com</p>
+            <p className="mb-0">
+              Contact: afghanistancricketassociation@gmail.com
+            </p>
           </Col>
         </Row>
       </Container>

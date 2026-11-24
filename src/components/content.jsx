@@ -49,7 +49,7 @@ export default function Content() {
       const data = await res.json();
 
       if (res.ok) {
-        setMatches((data.data || []).slice(0, 3));
+        setMatches(data.data.slice(0, 3));
       } else {
         console.error("Failed to fetch events:", data);
       }
@@ -149,9 +149,9 @@ export default function Content() {
                             VS
                           </div>
 
-                          <small className="text-muted">
+                          {/* <small className="text-muted">
                             {match.winner ? `${match.winner} Won` : "Result"}
-                          </small>
+                          </small> */}
                         </div>
 
                         {/* TEAM 2 */}
@@ -186,7 +186,12 @@ export default function Content() {
                           fontSize: "13px",
                         }}
                       >
-                        {match.result}
+                        <small className="text-muted">
+                          {match.winner
+                            ? `Winner: ${match.winner} - ${match.result}`
+                            : "Match Result Pending"}
+                        </small>
+                        {/* {match.result} */}
                       </div>
                     </BootstrapCard.Body>
                   </BootstrapCard>

@@ -51,9 +51,9 @@ export default function Navbar() {
             className="justify-content-start"
           >
             <img
-              src="/AfghanTampereSports.png"
-              width="100px"
-              height="100px"
+              src="/123.png"
+              width="90px"
+              height="90px"
               onClick={() => {
                 navigate("/");
               }}
