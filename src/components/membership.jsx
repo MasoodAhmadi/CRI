@@ -9,7 +9,8 @@ import PrivacyandTerms from "./privacyandterms";
 
 const API_BASE_URL =
   import.meta.env.VITE_BACKEND_URL || "error fetching backend URL";
-export default function Membership() {
+
+export default function MembershipPage() {
   const [form, setForm] = useState({
     name: "",
     email: "",

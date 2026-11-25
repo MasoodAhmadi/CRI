@@ -72,7 +72,7 @@ export default function Navbar() {
               <NavLink forwardedAs={Link} to="/matches">
                 Matches
               </NavLink>
-              <NavLink forwardedAs={Link} to="/squad">
+              <NavLink forwardedAs={Link} to="/cricketsquad">
                 Squad
               </NavLink>
               <NavLink forwardedAs={Link} to="/membership">

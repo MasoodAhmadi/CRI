@@ -19,30 +19,6 @@ export default function Content() {
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchLatestMatches = async () => {
-  //     try {
-  //       if (!API_BASE_URL) {
-  //         throw new Error("Backend URL is not configured.");
-  //       }
-  //       const res = await fetch(`${API_BASE_URL}/api/matches`);
-  //       const data = await res.json();
-
-  //       if (!res.ok) {
-  //         throw new Error(data.message || "Failed to fetch matches");
-  //       }
-
-  //       setMatches((data.data || []).slice(0, 3));
-  //     } catch (err) {
-  //       console.error("Failed to fetch latest matches:", err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchLatestMatches();
-  // }, []);
-
   const fetchEvents = async () => {
     try {
       console.log("API URL:", `${API_BASE_URL}/api/matches`);

@@ -9,9 +9,13 @@ export default function AboutUsCarousel() {
 
   return (
     <Container
-      // fluid
       className="p-0"
-      style={{ position: "", background: "#ffffff" }}
+      style={{
+        position: "",
+        background: "#fbfbfb",
+        // borderRadius: "8px",
+        boxShadow: "0 4px 12px rgba(14, 133, 33, 0.1)",
+      }}
     >
       <AboutUsCarouselContainer id="about">
         <Container fluid className="py-4 px-3">
@@ -28,7 +32,7 @@ export default function AboutUsCarousel() {
               <div className="about-text">
                 <h2 className="fw-bold text-dark mb-3">About Us</h2>
 
-                <p className="text-muted mb-3">
+                <p className="text-bold mb-3 text-muted">
                   The Afghanistan Cricket Association in Tampere, Finland brings
                   Afghan cricket players and fans together through matches,
                   training, and community events. We support young talent and

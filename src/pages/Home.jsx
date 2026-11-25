@@ -1,7 +1,5 @@
 import React from "react";
-import Footer from "../components/footer";
 import Events from "../components/events";
-import Navbar from "../components/navbars";
 import { Row, Col } from "react-bootstrap";
 import Contents from "../components/content";
 import ScrollToTop from "../components/scroll";
@@ -10,7 +8,6 @@ import AboutUsCarousel from "../components/aboutuscarousel";
 export default function Home() {
   return (
     <div>
-      <Navbar />
       <Contents />
       <AboutUsCarousel />
       <Events />
@@ -140,7 +137,6 @@ export default function Home() {
         </Row>
       </div>
       <ScrollToTop />
-      <Footer />
     </div>
   );
 }

@@ -1,18 +1,13 @@
-
 import { useNavigate } from "react-router-dom";
+import BreadCrump from "../../components/breadCrump";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { PeopleFill, CalendarEvent, TrophyFill } from "react-bootstrap-icons";
-
-import Navbars from "../../components/navbars";
-import BreadCrump from "../../components/breadCrump";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
 
   return (
     <>
-      <Navbars />
-
       <Container className="pt-3">
         <BreadCrump />
 

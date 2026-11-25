@@ -1,10 +1,7 @@
-
 import React, { useEffect, useState } from "react";
+import BreadCrump from "../../components/breadCrump";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { Button, Form, Spinner, Modal } from "react-bootstrap";
-
-import Navbars from "../../components/navbars";
-import BreadCrump from "../../components/breadCrump";
 import EventManagement from "../../components/eventmanagement";
 
 const API_BASE_URL =
@@ -138,7 +135,6 @@ export default function EventsPage() {
 
   return (
     <>
-      <Navbars />
       <Container className="py-4">
         <BreadCrump />
         <Container className="py-4">

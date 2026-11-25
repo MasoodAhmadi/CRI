@@ -3,8 +3,17 @@ import { Col, Container, Row } from "react-bootstrap";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 export default function Footer() {
+  const theme = {
+    colors: {
+      primary: "#343a40",
+      textLight: "#f8f9fa",
+    },
+  };
   return (
-    <footer className="bg-dark text-light text-center py-4 mt-5">
+    <footer
+      className="text-light text-center py-4 mt-5"
+      style={{ background: theme.colors.primary }}
+    >
       <Container>
         <Row>
           <Col md={4} className="mb-3 mb-md-0">
@@ -30,13 +39,15 @@ export default function Footer() {
 
           <Col md={4} className="mb-3 mb-md-0">
             <p className="mb-0">
-              &copy; {new Date().getFullYear()} Copy Right Reserved
+              <small>
+                &copy; {new Date().getFullYear()} Copy Right Reserved
+              </small>
             </p>
           </Col>
 
           <Col md={4}>
             <p className="mb-0">
-              Contact: afghanistancricketassociation@gmail.com
+              <small>Contact: afghanistancricketassociation@gmail.com</small>
             </p>
           </Col>
         </Row>

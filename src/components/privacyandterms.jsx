@@ -26,7 +26,51 @@ export default function PrivacyandTerms({
           >
             <Tab
               eventKey="pashto"
-              title={<span className="tab-title tab-title-black">Pashto</span>}
+              title={<span className="tab-title tab-title-black">English</span>}
+            >
+              <div className="text-start">
+                <h1 className="mb-4">Terms and Conditions</h1>
+                <p>Date of meeting: 15.01.2026</p>
+                <p>Notes:</p>
+                <ol>
+                  <li>
+                    Establish rules of discipline for Afghan cricket players
+                    living in Tampere.
+                  </li>
+                  <li>
+                    In this meeting, participants of the cricket sport gathered
+                    to set the rules.
+                  </li>
+                  <li>
+                    We agreed that we will appoint one coach for Tampere cricket
+                    who is acceptable to everyone and receives the highest vote.
+                  </li>
+                  <li>
+                    Every decision made by the coach in Tampere cricket is
+                    respected and accepted by all players.
+                  </li>
+                  <li>
+                    The WhatsApp group administration is given to the coach and
+                    no player can be admin.
+                  </li>
+                  <li>
+                    Any disobedient or disrespectful player must be removed from
+                    the team and punished so they cannot join future matches.
+                  </li>
+                  <li>
+                    If any player behaves unlawfully or disrupts Afghan cricket,
+                    call 112 if needed and prevent the incident.
+                  </li>
+                  <li>
+                    The names and signatures of Afghanistan cricket players are
+                    listed in the table below.
+                  </li>
+                </ol>
+              </div>
+            </Tab>
+            <Tab
+              eventKey="dari"
+              title={<span className="tab-title tab-title-green">Pashto</span>}
             >
               <div className="text-end">
                 <h1 className="mb-4">شرایط او مقررات</h1>
@@ -70,8 +114,8 @@ export default function PrivacyandTerms({
               </div>
             </Tab>
             <Tab
-              eventKey="dari"
-              title={<span className="tab-title tab-title-green">Dari</span>}
+              eventKey="english"
+              title={<span className="tab-title tab-title-red">Dari</span>}
             >
               <div className="text-end">
                 <h1 className="mb-4">شرایط و مقررا</h1>
@@ -109,50 +153,6 @@ export default function PrivacyandTerms({
                   <li>
                     نام و امضأ های بازیکنان کرکت افغانستان در جدول ذیل ذکر
                     گردیده است.
-                  </li>
-                </ol>
-              </div>
-            </Tab>
-            <Tab
-              eventKey="english"
-              title={<span className="tab-title tab-title-red">English</span>}
-            >
-              <div className="text-start">
-                <h1 className="mb-4">Terms and Conditions</h1>
-                <p>Date of meeting: 15.01.2026</p>
-                <p>Notes:</p>
-                <ol>
-                  <li>
-                    Establish rules of discipline for Afghan cricket players
-                    living in Tampere.
-                  </li>
-                  <li>
-                    In this meeting, participants of the cricket sport gathered
-                    to set the rules.
-                  </li>
-                  <li>
-                    We agreed that we will appoint one coach for Tampere cricket
-                    who is acceptable to everyone and receives the highest vote.
-                  </li>
-                  <li>
-                    Every decision made by the coach in Tampere cricket is
-                    respected and accepted by all players.
-                  </li>
-                  <li>
-                    The WhatsApp group administration is given to the coach and
-                    no player can be admin.
-                  </li>
-                  <li>
-                    Any disobedient or disrespectful player must be removed from
-                    the team and punished so they cannot join future matches.
-                  </li>
-                  <li>
-                    If any player behaves unlawfully or disrupts Afghan cricket,
-                    call 112 if needed and prevent the incident.
-                  </li>
-                  <li>
-                    The names and signatures of Afghanistan cricket players are
-                    listed in the table below.
                   </li>
                 </ol>
               </div>

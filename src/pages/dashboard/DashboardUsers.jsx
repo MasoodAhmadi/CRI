@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { paginate } from "../../utils/paginate";
+import { PlusLg } from "react-bootstrap-icons";
+import { useLocation } from "react-router-dom";
 import UserList from "../../components/userlist";
-import Navbars from "../../components/navbars";
+import React, { useEffect, useState } from "react";
+import { Col, Card, Modal } from "react-bootstrap";
+import BreadCrump from "../../components/breadCrump";
 import Membership from "../../components/membership";
 import useWindowSize from "../../utils/useWindowsSize";
 import PaginationComponent from "../../components/pagination";
 import { Table, Form, Button, Container, Row } from "react-bootstrap";
-import { Col, Card, Modal } from "react-bootstrap";
-import { ArrowLeft, PlusLg } from "react-bootstrap-icons";
-import { Breadcrumb } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import BreadCrump from "../../components/breadCrump";
 
 export default function UserManagement() {
   const navigate = useNavigate();
@@ -144,7 +142,6 @@ export default function UserManagement() {
 
   return (
     <>
-      <Navbars />
       <Container className="pt-3">
         <BreadCrump />
 

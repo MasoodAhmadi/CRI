@@ -1,5 +1,3 @@
-import Footer from "../components/footer";
-import Navbars from "../components/navbars";
 import countryFlags from "../utils/countryFlags";
 import React, { useEffect, useState } from "react";
 import PaginationComponent from "../components/pagination";
@@ -51,7 +49,7 @@ export default function MatchesPage() {
 
   return (
     <div style={{ background: "#f5f7fb", minHeight: "100vh" }}>
-      <Navbars />
+      {/* <Navbars /> */}
 
       <Container className="py-4">
         {/* Header */}
@@ -223,7 +221,6 @@ export default function MatchesPage() {
           </>
         )}
       </Container>
-      <Footer />
     </div>
   );
 }

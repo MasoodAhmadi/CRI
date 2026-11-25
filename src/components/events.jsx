@@ -7,7 +7,15 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 
 export default function Events() {
   return (
-    <Container className="p-0" style={{ position: "", background: "" }}>
+    <Container
+      className="p-0"
+      style={{
+        position: "",
+        // background: "#fbfbfb",
+        // borderRadius: "8px",
+        boxShadow: "0 4px 12px rgba(14, 133, 33, 0.1)",
+      }}
+    >
       <div className="position-relative" style={{ minHeight: "700px" }}>
         <img
           loading="lazy"
@@ -27,15 +35,15 @@ export default function Events() {
               <div className="d-flex align-items-center">
                 <Link
                   to="/events"
-                  className="text-light text-decoration-none fw-medium"
+                  className="text-dark text-decoration-none fw-medium"
                 >
                   All Events
+                  <ArrowRight
+                    className="mx-3 text-dark"
+                    size={21}
+                    style={{ color: "#000" }}
+                  />
                 </Link>
-                <ArrowRight
-                  className="mx-3"
-                  size={21}
-                  style={{ color: "#fff" }}
-                />
               </div>
             </div>
           </Container>

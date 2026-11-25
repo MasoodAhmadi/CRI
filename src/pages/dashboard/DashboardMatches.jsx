@@ -1,10 +1,8 @@
-
 import React, { useEffect, useState } from "react";
-import Navbars from "../../components/navbars";
-import BreadCrump from "../../components/breadCrump";
-import { Table, Form, Button, Container } from "react-bootstrap";
-import { Row, Col, Card, Badge } from "react-bootstrap";
 import countryFlags from "../../utils/countryFlags";
+import BreadCrump from "../../components/breadCrump";
+import { Row, Col, Card, Badge } from "react-bootstrap";
+import { Table, Form, Button, Container } from "react-bootstrap";
 
 const API_BASE_URL =
   import.meta.env.VITE_BACKEND_URL ||
@@ -158,8 +156,6 @@ export default function MatchesPage() {
 
   return (
     <div>
-      <Navbars />
-
       <Container className="pt-3">
         <BreadCrump />
 
