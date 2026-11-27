@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Login from "./login";
-import Register from "./register";
+// import Register from "./register";
 
 const AuthModal = ({ onClose, onLoginSuccess }) => {
   const [authMode, setAuthMode] = useState("login");
@@ -22,14 +22,14 @@ const AuthModal = ({ onClose, onLoginSuccess }) => {
           onLoginSuccess={onLoginSuccess}
         />
       )}
-
+      {/* 
       {authMode === "register" && (
         <Register
           onSwitchToLogin={openLogin}
           onClose={onClose}
           onRegisterSuccess={onClose}
         />
-      )}
+      )} */}
     </>
   );
 };

@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import RBNavbar from "react-bootstrap/Navbar";
 import { useNavigate } from "react-router-dom";
-import { Container, Modal } from "react-bootstrap";
+import { Container, Modal, NavDropdown } from "react-bootstrap";
 import { NavLinks, NavLink, LoginButton } from "../styles/navbar.style";
-import { LogoutButton, NavRight, MainNavbar } from "../styles/navbar.style";
+import {
+  LogoutButton,
+  NavRight,
+  MainNavbar,
+  StyledNavDropdown,
+} from "../styles/navbar.style";
 
 export default function Navbar() {
   const [showLogin, setShowLogin] = useState(false);
@@ -79,12 +84,26 @@ export default function Navbar() {
               </NavLink>
 
               <NavLink forwardedAs={Link} to="/players">
-                Squad
+                Players
               </NavLink>
 
+              <StyledNavDropdown title="Memberships" id="basic-nav-dropdown">
+                <NavDropdown.Item>
+                  <NavLink forwardedAs={Link} to="/membership">
+                    Squad Membership
+                  </NavLink>
+                </NavDropdown.Item>
+                <NavDropdown.Item></NavDropdown.Item>
+
+                <NavDropdown.Divider />
+                <NavLink forwardedAs={Link} to="/shpageeza-fi">
+                  Shpageeza - FI
+                </NavLink>
+              </StyledNavDropdown>
+              {/* 
               <NavLink forwardedAs={Link} to="/membership">
                 Membership
-              </NavLink>
+              </NavLink> */}
 
               <NavRight>
                 {userLoggedIn ? (

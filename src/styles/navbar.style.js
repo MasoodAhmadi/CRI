@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { hoverGlow } from "./mixins";
+import { NavDropdown } from "react-bootstrap";
 import { Card, Nav, Navbar } from "react-bootstrap"
 /* TOP BRAND BAR */
 export const BrandBar = styled.div`
@@ -31,6 +32,60 @@ export const BrandSection = styled.div`
   align-items: center; /* instead of margin-top */
   justify-content: ${props => props.$align};
 
+`;
+
+
+export const StyledNavDropdown = styled(NavDropdown)`
+  .dropdown-toggle {
+    color: #fff !important;
+    background: transparent !important;
+    border: 1px solid #fff !important;
+    border-radius: 4px !important;
+    padding: 8px 10px !important;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .dropdown-toggle:hover,
+  .dropdown-toggle:focus,
+  &.show .dropdown-toggle {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: #fff !important;
+  }
+
+  .dropdown-menu {
+    background: #548f3f;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 6px;
+    padding: 6px;
+    min-width: 180px;
+    margin-top: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .dropdown-item {
+    color: #fff !important;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 12px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+
+  .dropdown-item:hover,
+  .dropdown-item:focus,
+  .dropdown-item.active {
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.18) !important;
+  }
+
+  .dropdown-divider {
+    border-top-color: rgba(255, 255, 255, 0.35);
+    margin: 5px 0;
+  }
 `;
 
 

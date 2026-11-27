@@ -42,6 +42,7 @@ export default function MembershipPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setLoading(true);
     setMessage("");
     setSubmitted(false);
@@ -56,58 +57,72 @@ export default function MembershipPage() {
 
     try {
       const payload = {
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        city: form.city,
-        password: import.meta.env.VITE_DEFAULT_USERPASSWORD,
-        role: import.meta.env.VITE_ROLE,
+        name: form.name.trim(),
+        email: form.email.trim().toLowerCase(),
+        phone: form.phone.trim(),
+        city: form.city.trim(),
       };
 
-      const response = await fetch(`${API_BASE_URL}/api/users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+      if (!import.meta.env.VITE_BACKEND_URL) {
+        throw new Error("Backend URL is not configured.");
+      }
+
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL.replace(/\/$/, "")}/api/players`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
         },
-        body: JSON.stringify(payload),
+      );
+
+      // Read response safely, even if the server returns HTML
+      const responseText = await response.text();
+
+      let data;
+      try {
+        data = JSON.parse(responseText);
+      } catch {
+        throw new Error(
+          `Server returned an invalid response (HTTP ${response.status}). Check your backend deployment.`,
+        );
+      }
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.message || `Registration failed (HTTP ${response.status})`,
+        );
+      }
+
+      setMessage(
+        data.message ||
+          "Registration submitted successfully. Waiting for approval.",
+      );
+
+      setSubmitted(true);
+
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        city: "",
       });
 
-      const data = await response.json();
+      setErrors({});
 
-      if (!response.ok) {
-        const errorText =
-          data?.message ||
-          (data?.errors &&
-            Object.values(data.errors)
-              .map((e) => e.message)
-              .join(", ")) ||
-          "Error creating user";
-
-        setMessage(errorText);
-        setSubmitted(false);
-        return;
-      } else {
-        setMessage("User added successfully!");
-        setSubmitted(true);
-
-        setForm({
-          name: "",
-          email: "",
-          phone: "",
-          city: "",
-        });
-
-        toast.success("Form submitted successfully!", {
-          position: "bottom-left",
-          autoClose: 3000,
-        });
-      }
+      toast.success("Registration submitted successfully!", {
+        position: "bottom-left",
+        autoClose: 3000,
+      });
     } catch (err) {
-      console.error("Error:", err);
-      setMessage("Something went wrong.");
+      console.error("Player registration error:", err);
+      setMessage(err.message || "Something went wrong.");
+      setSubmitted(false);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (

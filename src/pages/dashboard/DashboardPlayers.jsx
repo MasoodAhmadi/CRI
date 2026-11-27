@@ -30,7 +30,19 @@ export default function UserManagement() {
 
   const fetchPlayers = useCallback(async () => {
     try {
-      const response = await fetch(`${API_BASE_URL}/api/players`);
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        throw new Error("Authentication token not found. Please log in again.");
+      }
+
+      const response = await fetch(`${API_BASE_URL}/api/players/admin`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const result = await response.json();
 
@@ -46,17 +58,15 @@ export default function UserManagement() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
+    const token = localStorage.getItem("token");
 
-    if (!storedUser) {
+    if (!storedUser || !token) {
       navigate("/notFound");
       return;
     }
 
     try {
       const user = JSON.parse(storedUser);
-
-      const token =
-        user.token || user.accessToken || localStorage.getItem("token") || "";
 
       setAuthToken(token);
 
@@ -65,7 +75,10 @@ export default function UserManagement() {
       setIsLoading(false);
     } catch (error) {
       console.error("Invalid stored user:", error);
+
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
+
       navigate("/notFound");
     }
   }, [navigate]);

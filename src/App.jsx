@@ -10,6 +10,7 @@ import { Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
 import MembershipPage from "./pages/MembershipPage";
 import PlayersPage from "./pages/Players";
+import ShpageezaFI from "./pages/ShpageezaFI";
 import DashboardUsers from "./pages/dashboard/DashboardUsers";
 import DashboardEvents from "./pages/dashboard/DashboardEvents";
 import DashboardMatches from "./pages/dashboard/DashboardMatches";
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/matches" element={<Matches />} />
           <Route path="/membership" element={<MembershipPage />} />
           <Route path="/players" element={<PlayersPage />} />
+          <Route path="/shpageeza-fi" element={<ShpageezaFI />} />
 
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/dashboard/events" element={<DashboardEvents />} />
