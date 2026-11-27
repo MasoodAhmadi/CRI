@@ -4,10 +4,7 @@ import PaginationComponent from "../components/pagination";
 import { Card, Container, Row, Col, Badge, Spinner } from "react-bootstrap";
 
 const API_BASE_URL =
-  import.meta.env.VITE_BACKEND_URL ||
-  import.meta.env.VITE_BACKEND_URL_3 ||
-  import.meta.env.VITE_BACKEND_URL_2 ||
-  "no backend service working!";
+  import.meta.env.VITE_BACKEND_URL || "no backend service working!";
 
 export default function MatchesPage() {
   const [matches, setMatches] = useState([]);

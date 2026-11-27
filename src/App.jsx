@@ -17,26 +17,28 @@ import DashboardPlayers from "./pages/dashboard/DashboardPlayers";
 
 export default function App() {
   return (
-    <>
+    <div className="app-layout">
       <Navbar />
       <ScrollManager />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/matches" element={<Matches />} />
-        <Route path="/membership" element={<MembershipPage />} />
-        <Route path="/players" element={<PlayersPage />} />
+      <div className="app-main">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/matches" element={<Matches />} />
+          <Route path="/membership" element={<MembershipPage />} />
+          <Route path="/players" element={<PlayersPage />} />
 
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/events" element={<DashboardEvents />} />
-        <Route path="/dashboard/matches" element={<DashboardMatches />} />
-        <Route path="/dashboard/users" element={<DashboardUsers />} />
-        <Route path="/dashboard/players" element={<DashboardPlayers />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/events" element={<DashboardEvents />} />
+          <Route path="/dashboard/matches" element={<DashboardMatches />} />
+          <Route path="/dashboard/users" element={<DashboardUsers />} />
+          <Route path="/dashboard/players" element={<DashboardPlayers />} />
 
-        <Route path="/notFound" element={<NotFound />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+          <Route path="/notFound" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }

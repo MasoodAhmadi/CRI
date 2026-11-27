@@ -2,6 +2,34 @@
   background-color: #ffffff !important;
 }
 
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+}
+
+/* Footer */
+footer {
+  width: 100%;
+  margin-top: auto;
+}
+
 .report-list-wrapper {
   margin-top: 1rem;
 }

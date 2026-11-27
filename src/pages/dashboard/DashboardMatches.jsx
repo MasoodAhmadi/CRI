@@ -5,10 +5,7 @@ import { Row, Col, Card, Badge } from "react-bootstrap";
 import { Table, Form, Button, Container } from "react-bootstrap";
 
 const API_BASE_URL =
-  import.meta.env.VITE_BACKEND_URL ||
-  import.meta.env.VITE_BACKEND_URL_3 ||
-  import.meta.env.VITE_BACKEND_URL_2 ||
-  "There is no backend service working!";
+  import.meta.env.VITE_BACKEND_URL || "There is no backend service working!";
 
 const matchFormats = [
   "5 Over Match",
