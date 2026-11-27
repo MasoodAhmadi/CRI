@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import countryFlags from "../utils/countryFlags";
 import { useNavigate } from "react-router-dom";
+import countryFlags from "../utils/countryFlags";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { CardsWrapper, Section } from "../styles/content.style";
 import { Card, Title } from "../styles/content.style";
+import { CardsWrapper, Section } from "../styles/content.style";
 import { Card as BootstrapCard, Badge, Spinner } from "react-bootstrap";
 import { Calendar2CheckFill, PeopleFill, Receipt } from "react-bootstrap-icons";
 
@@ -18,32 +18,54 @@ export default function Content() {
 
   const [matches, setMatches] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const fetchEvents = async () => {
+  const fetchMatches = async (signal) => {
     try {
-      console.log("API URL:", `${API_BASE_URL}/api/matches`);
+      setLoading(true);
+      setError("");
 
-      const res = await fetch(`${API_BASE_URL}/api/matches`);
-      console.log("Response status:", res.status);
+      const url = `${API_BASE_URL}/api/matches`;
 
-      const data = await res.json();
-      console.log("API response:", data);
+      console.log("Fetching matches:", url);
 
-      if (res.ok && Array.isArray(data.data)) {
-        setMatches(data.data.slice(0, 3));
-      } else {
-        console.error("Unexpected API response:", data);
+      const res = await fetch(url, { signal });
+
+      if (!res.ok) {
+        throw new Error(`Matches API failed: ${res.status}`);
+      }
+
+      const response = await res.json();
+
+      console.log("Matches API response:", response);
+
+      // Supports both response formats
+      const matchData = Array.isArray(response) ? response : response.data;
+
+      if (!Array.isArray(matchData)) {
+        throw new Error("Invalid matches API response");
+      }
+
+      setMatches(matchData.slice(0, 3));
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        console.error("Matches fetching error:", err);
+        setError(err.message);
         setMatches([]);
       }
-    } catch (err) {
-      console.error("Error fetching matches:", err);
     } finally {
-      setLoading(false);
+      if (!signal.aborted) {
+        setLoading(false);
+      }
     }
   };
 
   useEffect(() => {
-    fetchEvents();
+    const controller = new AbortController();
+
+    fetchMatches(controller.signal);
+
+    return () => controller.abort();
   }, []);
 
   return (

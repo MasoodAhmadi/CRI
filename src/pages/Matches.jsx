@@ -7,7 +7,7 @@ const API_BASE_URL =
   import.meta.env.VITE_BACKEND_URL ||
   import.meta.env.VITE_BACKEND_URL_3 ||
   import.meta.env.VITE_BACKEND_URL_2 ||
-  "There is no backend service working!";
+  "no backend service working!";
 
 export default function MatchesPage() {
   const [matches, setMatches] = useState([]);
@@ -32,27 +32,21 @@ export default function MatchesPage() {
       setLoading(false);
     }
   };
-  console.log("Fetched Matches:", matches);
 
   useEffect(() => {
     fetchMatches();
   }, []);
 
-  // Afghanistan Wins Count
   const afghanistanWins = matches.filter(
     (match) => match.winner === "Afghanistan",
   ).length;
 
-  // Pagination Logic
   const startIndex = (currentPage - 1) * pageSize;
   const paginatedMatches = matches.slice(startIndex, startIndex + pageSize);
 
   return (
     <div style={{ background: "#f5f7fb", minHeight: "100vh" }}>
-      {/* <Navbars /> */}
-
       <Container className="py-4">
-        {/* Header */}
         <div className="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
           <div>
             <h2 className="fw-bold mb-1">Cricket Match History</h2>
@@ -79,9 +73,6 @@ export default function MatchesPage() {
               }}
             >
               <>
-                {" "}
-                {/* <div style={{ fontSize: "" }}> */}
-                {/* {match.team1.flag} */}
                 <img
                   src={countryFlags.Afghanistan}
                   alt={countryFlags.Afghanistan}
@@ -92,7 +83,6 @@ export default function MatchesPage() {
                     borderRadius: "px",
                   }}
                 />
-                {/* </div> */}
                 Afghanistan Wins: {afghanistanWins}
               </>
             </div>
@@ -135,7 +125,6 @@ export default function MatchesPage() {
                       <Row className="align-items-center text-center mb-4">
                         <Col>
                           <div style={{ fontSize: "50px" }}>
-                            {/* {match.team1.flag} */}
                             <img
                               src={countryFlags[match.team1.name]}
                               alt={match.team1.name}
@@ -185,8 +174,6 @@ export default function MatchesPage() {
                           </Badge>
                         </Col>
                       </Row>
-
-                      {/* Result */}
                       <div
                         className="p-3 rounded text-center"
                         style={{
@@ -209,7 +196,6 @@ export default function MatchesPage() {
               ))}
             </Row>
 
-            {/* Pagination */}
             <div className="mt-4">
               <PaginationComponent
                 itemsCount={matches.length}

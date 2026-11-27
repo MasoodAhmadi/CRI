@@ -97,7 +97,7 @@ export default function EventsPage() {
       method,
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // ✅ THIS IS REQUIRED
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(form),
     });
@@ -107,7 +107,6 @@ export default function EventsPage() {
       setShowModal(false);
     } else {
       const data = await res.json();
-      console.log("ERROR:", data);
       alert(data.message || "Error saving event");
     }
   };
@@ -143,8 +142,6 @@ export default function EventsPage() {
 
             <Button onClick={openCreate}>+ Create Event</Button>
           </div>
-
-          {/* EVENTS LIST */}
           <Row>
             {events.map((event) => (
               <Col md={4} key={event._id}>
@@ -182,8 +179,6 @@ export default function EventsPage() {
               </Col>
             ))}
           </Row>
-
-          {/* MODAL (CREATE / EDIT) */}
           <Modal
             show={showModal}
             onHide={() => setShowModal(false)}

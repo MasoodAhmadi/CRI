@@ -1,50 +1,52 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { LogoutButton, NavRight } from "../styles/navbar.style";
-import { MainNavbar } from "../styles/navbar.style";
-import { NavLinks, NavLink } from "../styles/navbar.style";
-import { LoginButton } from "../styles/navbar.style";
-import { Container, Modal } from "react-bootstrap";
 import AuthModal from "./authmodal";
-import RBNavbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import RBNavbar from "react-bootstrap/Navbar";
+import { useNavigate } from "react-router-dom";
+import { Container, Modal } from "react-bootstrap";
+import { NavLinks, NavLink, LoginButton } from "../styles/navbar.style";
+import { LogoutButton, NavRight, MainNavbar } from "../styles/navbar.style";
 
 export default function Navbar() {
   const [showLogin, setShowLogin] = useState(false);
-  const [userLoggedIn, setUserLoggedIn] = useState(false);
-  const [size, setSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
+  const [userLoggedIn, setUserLoggedIn] = useState(
+    () => !!localStorage.getItem("token") && !!localStorage.getItem("user"),
+  );
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    function handleResize() {
-      setSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    setUserLoggedIn(!!user);
-  }, []);
+  const handleLoginSuccess = () => {
+    setUserLoggedIn(true);
+    setShowLogin(false);
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
+
+    setUserLoggedIn(false);
+    setShowLogin(false);
+
     navigate("/");
   };
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setUserLoggedIn(!!localStorage.getItem("token"));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   return (
     <>
       <MainNavbar expand="sm" variant="dark" collapseOnSelect>
         <RBNavbar.Toggle aria-controls="main-navbar-nav" />
+
         <Container className="d-flex justify-content-between align-items-center py-2">
           <RBNavbar.Collapse
             id="main-navbar-nav"
@@ -54,27 +56,32 @@ export default function Navbar() {
               src="/123.png"
               width="90px"
               height="90px"
-              onClick={() => {
-                navigate("/");
-              }}
+              alt="Logo"
+              onClick={() => navigate("/")}
               style={{ cursor: "pointer" }}
             />
+
             <NavLinks>
               <NavLink forwardedAs={Link} to="/">
                 Home
               </NavLink>
+
               <NavLink forwardedAs={Link} to="/#about">
                 About
               </NavLink>
+
               <NavLink forwardedAs={Link} to="/events">
                 Events
               </NavLink>
+
               <NavLink forwardedAs={Link} to="/matches">
                 Matches
               </NavLink>
-              <NavLink forwardedAs={Link} to="/cricketsquad">
+
+              <NavLink forwardedAs={Link} to="/players">
                 Squad
               </NavLink>
+
               <NavLink forwardedAs={Link} to="/membership">
                 Membership
               </NavLink>
@@ -85,6 +92,7 @@ export default function Navbar() {
                     <NavLink forwardedAs={Link} to="/dashboard">
                       Dashboard
                     </NavLink>
+
                     <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
                   </>
                 ) : (
@@ -97,14 +105,18 @@ export default function Navbar() {
           </RBNavbar.Collapse>
         </Container>
       </MainNavbar>
+
       <Modal
         show={showLogin}
         onHide={() => setShowLogin(false)}
         dialogClassName="custom-auth-modal"
         centered
       >
-        <AuthModal onClose={() => setShowLogin(false)} />
-      </Modal>{" "}
+        <AuthModal
+          onClose={() => setShowLogin(false)}
+          onLoginSuccess={handleLoginSuccess}
+        />
+      </Modal>
     </>
   );
 }

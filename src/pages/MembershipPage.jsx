@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+import { Col, Alert, Modal } from "react-bootstrap";
 import Accordations from "../components/accordation";
 import { ToastContainer, toast } from "react-toastify";
+import PrivacyandTerms from "../components/privacyandterms";
 import { PersonBadgeFill, Phone } from "react-bootstrap-icons";
 import { Form, Button, Container, Row } from "react-bootstrap";
-import { Col, Alert, Modal } from "react-bootstrap";
-import PrivacyandTerms from "../components/privacyandterms";
 
 const API_BASE_URL =
-  import.meta.env.VITE_BACKEND_URL || "error fetching backend URL";
+  import.meta.env.VITE_BACKEND_URL || "no backend service working! ";
 export default function MembershipPage() {
   const [form, setForm] = useState({
     name: "",
@@ -124,7 +124,6 @@ export default function MembershipPage() {
         </Row>
 
         <Row className="justify-content-center">
-          {/* Right side */}
           <Col md={7}>
             <div className="card p-3">
               <Container className="mt-4">
@@ -265,7 +264,6 @@ export default function MembershipPage() {
               </Container>
             </div>
           </Col>
-          {/* Left side */}
           <Col md={4}>
             <div className="card p-3 text-center">
               <strong className="m-2 p-2">

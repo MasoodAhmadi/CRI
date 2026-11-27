@@ -1,9 +1,9 @@
+import { toast } from "react-toastify";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Card, Form } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
 
-const Login = ({ onSwitchToRegister }) => {
+const Login = ({ onLoginSuccess, onClose }) => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -11,8 +11,8 @@ const Login = ({ onSwitchToRegister }) => {
   const [isSigningIn, setIsSigningIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const API_BASE_URL =
-    import.meta.env.VITE_BACKEND_URL || "There is no backend service working!";
+  const API_BASE_URL = import.meta.env.VITE_BACKEND_URL;
+
   const onSubmit = async (e) => {
     e.preventDefault();
     setIsSigningIn(true);
@@ -21,7 +21,6 @@ const Login = ({ onSwitchToRegister }) => {
     try {
       if (!email || !password) {
         setErrorMessage("Email and password are required.");
-        setIsSigningIn(false);
         return;
       }
 
@@ -30,24 +29,23 @@ const Login = ({ onSwitchToRegister }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
-      console.log("Response from backend:", data);
 
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
       }
 
-      // ✅ IMPORTANT: STORE TOKEN
       localStorage.setItem("token", data.token);
-
-      // ✅ STORE USER INFO
       localStorage.setItem("user", JSON.stringify(data.user));
+
+      // Update Navbar
+      onLoginSuccess?.(data.user);
+
+      // Close login modal
+      onClose?.();
 
       toast.success("Login successful!", {
         position: "bottom-left",
@@ -56,7 +54,7 @@ const Login = ({ onSwitchToRegister }) => {
 
       navigate("/dashboard");
     } catch (error) {
-      console.error("Login failed:", error.message);
+      console.error("Login failed:", error);
       setErrorMessage(error.message || "An error occurred during login.");
     } finally {
       setIsSigningIn(false);
@@ -64,80 +62,61 @@ const Login = ({ onSwitchToRegister }) => {
   };
 
   return (
-    <>
-      <ToastContainer />
-      <div
-        className="d-flex justify-content-center align-items-center"
-        style={{ height: "" }}
+    <div className="d-flex justify-content-center align-items-center">
+      <Card
+        className="p-3 mb-5 shadow-sm"
+        style={{
+          border: "none",
+          background: "rgba(255, 255, 255, 0.95)",
+          WebkitBackdropFilter: "blur(30px)",
+          borderRadius: "1.25rem",
+          maxWidth: "450px",
+          width: "100%",
+        }}
       >
-        <Card
-          className="p-3 mb-5 shadow-sm"
-          style={{
-            border: "none",
-            background: "rgba(255, 255, 255, 0.95)",
-            WebkitBackdropFilter: "blur(30px)",
-            borderRadius: "1.25rem",
-            maxWidth: "450px",
-            width: "100%",
-          }}
-        >
-          <Card.Body>
-            <h2 className="text-center text-primary fw-bold mb-4">Sign In</h2>
-            <Form onSubmit={onSubmit} autoComplete="off">
-              <Form.Group className="mb-4" controlId="formBasicEmail">
-                <Form.Label className="fw-semibold">Email address</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Enter email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  autoFocus
-                  required
-                />
-              </Form.Group>
+        <Card.Body>
+          <h2 className="text-center text-primary fw-bold mb-4">Sign In</h2>
 
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label className="fw-semibold">Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
+          <Form onSubmit={onSubmit} autoComplete="off">
+            <Form.Group className="mb-4" controlId="formBasicEmail">
+              <Form.Label className="fw-semibold">Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoFocus
+                required
+              />
+            </Form.Group>
 
-              {errorMessage && (
-                <div className="text-danger fw-semibold mb-3">
-                  {errorMessage}
-                </div>
-              )}
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label className="fw-semibold">Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
 
-              <Button
-                variant="primary"
-                type="submit"
-                disabled={isSigningIn}
-                className="w-100 rounded-pill fw-semibold shadow-sm"
-              >
-                {isSigningIn ? "Signing In..." : "Sign In"}
-              </Button>
+            {errorMessage && (
+              <div className="text-danger fw-semibold mb-3">{errorMessage}</div>
+            )}
 
-              <div className="d-flex justify-content-center align-items-center mt-4">
-                <span className="me-2 text-muted">Don't have an account?</span>
-                <button
-                  type="button"
-                  className="btn btn-link p-0 fw-semibold"
-                  style={{ textDecoration: "underline" }}
-                  onClick={onSwitchToRegister}
-                >
-                  Sign up
-                </button>
-              </div>
-            </Form>
-          </Card.Body>
-        </Card>
-      </div>
-    </>
+            <Button
+              variant="primary"
+              type="submit"
+              disabled={isSigningIn}
+              className="w-100 rounded-pill fw-semibold shadow-sm"
+            >
+              {isSigningIn ? "Signing In..." : "Sign In"}
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
+    </div>
   );
 };
 

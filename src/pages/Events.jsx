@@ -3,7 +3,7 @@ import { Card, Button, Container } from "react-bootstrap";
 import { Row, Col, Badge, Spinner } from "react-bootstrap";
 
 const API_BASE_URL =
-  import.meta.env.VITE_BACKEND_URL || "There is no backend service working! ";
+  import.meta.env.VITE_BACKEND_URL || "no backend service working! ";
 
 export default function EventsPage() {
   const [events, setEvents] = useState([]);
@@ -105,9 +105,7 @@ export default function EventsPage() {
   return (
     <>
       <Container className="py-5">
-        {/* UPCOMING EVENTS */}
         <h2 className="mb-3">🟢 Upcoming Events</h2>
-
         {upcomingEvents.length === 0 ? (
           <p>No upcoming events</p>
         ) : (
@@ -120,9 +118,7 @@ export default function EventsPage() {
           </Row>
         )}
 
-        {/* PAST EVENTS */}
         <h2 className="mt-5 mb-3">⚫ Past Events</h2>
-
         {pastEvents.length === 0 ? (
           <p>No past events</p>
         ) : (

@@ -2,26 +2,33 @@ import React, { useState } from "react";
 import Login from "./login";
 import Register from "./register";
 
-const AuthModal = ({ onClose }) => {
+const AuthModal = ({ onClose, onLoginSuccess }) => {
   const [authMode, setAuthMode] = useState("login");
 
   const openLogin = () => {
-    console.log("Open Login");
     setAuthMode("login");
   };
 
   const openRegister = () => {
-    console.log("Open Register");
     setAuthMode("register");
   };
 
   return (
     <>
       {authMode === "login" && (
-        <Login onSwitchToRegister={openRegister} onRegisterSuccess={onClose} />
+        <Login
+          onSwitchToRegister={openRegister}
+          onClose={onClose}
+          onLoginSuccess={onLoginSuccess}
+        />
       )}
+
       {authMode === "register" && (
-        <Register onSwitchToLogin={openLogin} onRegisterSuccess={onClose} />
+        <Register
+          onSwitchToLogin={openLogin}
+          onClose={onClose}
+          onRegisterSuccess={onClose}
+        />
       )}
     </>
   );

@@ -160,8 +160,6 @@ export default function MatchesPage() {
         <BreadCrump />
 
         <h3 className="mt-3 mb-3">Matches Management</h3>
-
-        {/* ---------------- FORM ---------------- */}
         <Card className="p-3 mb-4 shadow-sm">
           <Form onSubmit={handleSubmit}>
             <Row>
